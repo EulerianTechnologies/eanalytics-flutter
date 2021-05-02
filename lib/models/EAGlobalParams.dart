@@ -45,4 +45,8 @@ class EAGlobalParams {
 
     return globalParams;
   }
+
+  static Future<void> init() async {
+    _instance._build();
+  }
 }
