@@ -20,7 +20,7 @@ Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
   if (Platform.isAndroid) systemInfo.addAll(parseAndroidInfo(await device.androidInfo));
   if (Platform.isIOS) systemInfo.addAll(parseIosInfo(await device.iosInfo));
 
-  systemInfo[SystemInfoKey.AD_ID] = await getAdvertiserId();
+  systemInfo[SystemInfoKey.AD_ID] = await getAdvertiserId(false);
 
   return systemInfo;
 }
@@ -49,9 +49,9 @@ Map<SystemInfoKey, String?> parsePackageInfo(PackageInfo info) {
   };
 }
 
-Future<String?> getAdvertiserId() async {
+Future<String?> getAdvertiserId(bool requestTrackingAuthorization) async {
   try {
-    return await AdvertisingId.id(true);
+    return await AdvertisingId.id(requestTrackingAuthorization);
   } on PlatformException {
     return null;
   }

@@ -1,4 +1,3 @@
-import 'package:advertising_id/advertising_id.dart';
 import 'package:async/async.dart';
 import 'package:eanalytics/eanalytics.dart';
 import 'package:eanalytics/models/keys/EAPropertyKey.dart';
@@ -27,19 +26,21 @@ class EAGlobalParams {
 
   Future<Map<EAPropertyKey, dynamic>> _build() => _buildMemo.runOnce(() async {
         var asyncParams = <EAPropertyKey, dynamic>{};
-        final systemInfo = (await getSystemInfo())..removeWhere((_, value) => value == null);
+        final systemInfo = (await getSystemInfo())
+          ..removeWhere((_, value) => value == null || (value is String) && value.isEmpty);
 
         asyncParams.addAll(systemInfo.map<EAPropertyKey, dynamic>((key, value) {
           return new MapEntry(SystemInfoMapping[key] as EAPropertyKey, value);
         }));
 
+        Eulerian.logger.d('[EAnalytics] - EAGlobalParams built ${asyncParams.toString()}');
         return asyncParams;
       });
 
   static Future<Map<EAPropertyKey, dynamic>> build() async {
     var globalParams = <EAPropertyKey, dynamic>{};
-    globalParams.addAll(await _instance._build());
 
+    globalParams.addAll(await _instance._build());
     globalParams[EAPropertyKey.SDK_VERSION] = Eulerian.SDK_VERSION;
     globalParams[EAPropertyKey.EPOCH] = getSecondsSinceEpoch();
 
@@ -47,6 +48,11 @@ class EAGlobalParams {
   }
 
   static Future<void> init() async {
-    _instance._build();
+    try {
+      Eulerian.logger.d('[EAnalytics] - EAGlobalParams initialization');
+      await _instance._build();
+    } catch (e) {
+      Eulerian.logger.e('[EAnalytics] - Error while initializing global parameters', e);
+    }
   }
 }
