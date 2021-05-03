@@ -42,7 +42,7 @@ class Eulerian {
   }
 
   Future<void> sync() async {
-    List<dynamic> payloads = (await getSavedPayloads());
+    List<dynamic> payloads = (await getStoredProperties());
     if (payloads.isNotEmpty) {}
   }
 }

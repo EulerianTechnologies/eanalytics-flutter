@@ -4,7 +4,7 @@
 
 If you're planning on using the advertisingIdentifier : make sure you update your `Info.plist` file located in ios/Runner directory and add the `NSUserTrackingUsageDescription` key with a custom message describing your usage
 
-```
+```xml
 <key>NSUserTrackingUsageDescription</key>
 <string>Request tracking...</string>
 ```
