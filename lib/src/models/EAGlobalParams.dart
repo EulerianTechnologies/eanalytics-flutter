@@ -1,8 +1,9 @@
 import 'package:async/async.dart';
-import 'package:eanalytics/eanalytics.dart';
-import 'package:eanalytics/models/keys/EAPropertyKey.dart';
-import 'package:eanalytics/utils/systemInfo.dart';
-import 'package:eanalytics/utils/time.dart';
+import 'package:eanalytics/src/eulerian.dart';
+import 'package:eanalytics/src/utils/systemInfo.dart';
+import 'package:eanalytics/src/utils/time.dart';
+
+import 'keys/EAPropertyKey.dart';
 
 const SystemInfoMapping = <SystemInfoKey, EAPropertyKey>{
   SystemInfoKey.AD_ID: EAPropertyKey.ADID,

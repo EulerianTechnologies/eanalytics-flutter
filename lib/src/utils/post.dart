@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:eanalytics/eanalytics.dart';
-import 'package:eanalytics/utils/time.dart';
+import 'package:eanalytics/src/eulerian.dart';
+import 'package:eanalytics/src/utils/time.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 

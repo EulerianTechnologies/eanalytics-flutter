@@ -1,5 +1,4 @@
 import 'package:eanalytics/eanalytics.dart';
-import 'package:eanalytics/models/EAProperty.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,7 +1,7 @@
 library eanalytics;
 
-import 'package:eanalytics/models/EAGlobalParams.dart';
-import 'package:eanalytics/models/keys/EAPropertyKey.dart';
+import 'EAGlobalParams.dart';
+import 'keys/EAPropertyKey.dart';
 
 class EAProperty {
   Map<EAPropertyKey, dynamic> _payload = {};

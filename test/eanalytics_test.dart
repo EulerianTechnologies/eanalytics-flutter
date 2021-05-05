@@ -1,6 +1,6 @@
-import 'package:eanalytics/models/EAProperty.dart';
+import 'package:eanalytics/src/models/EAProperty.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:eanalytics/eanalytics.dart';
+import 'package:eanalytics/src/eulerian.dart';
 
 void main() {
   test('Eulerian class should always return singleton instance', () {
