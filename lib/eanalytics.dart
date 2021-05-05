@@ -1,6 +1,8 @@
 library eanalytics;
 
 import 'package:eanalytics/models/EAGlobalParams.dart';
+import 'package:eanalytics/models/EAProperties.dart';
+import 'package:eanalytics/utils/post.dart';
 import 'package:eanalytics/utils/storage.dart';
 import 'package:eanalytics/utils/systemInfo.dart';
 import 'package:flutter/widgets.dart';
@@ -13,6 +15,7 @@ class Eulerian {
 
   bool initialized = false;
   String? domain;
+  PostHandler? postHandler;
 
   factory Eulerian() {
     return _instance;
@@ -30,19 +33,38 @@ class Eulerian {
 
       await EAGlobalParams.init();
       Eulerian._instance.initialized = true;
+      Eulerian._instance.postHandler = createPostHandler(domain, logger);
       logger.d('[EAnalytics] - Initilization succeeded for domain $domain');
     } catch (e) {
       logger.e('[EAnalytics] - Initialization failed ${e.toString()}');
     }
   }
 
-  static void track() {
+  static void track(List<EAProperties> properties) {
     assert(Eulerian._instance.initialized, 'Eulerian Tracker was not initialized. You must call Eulerian.Init()');
     if (!Eulerian._instance.initialized) return;
+
+    Eulerian._instance._post(properties.fold(<Map<String, dynamic>>[], (acc, prop) {
+      acc.add(prop.toJson());
+      return acc;
+    }));
   }
 
-  Future<void> sync() async {
-    List<dynamic> payloads = (await getStoredProperties());
-    if (payloads.isNotEmpty) {}
+  Future<List<Map<String, dynamic>>> _sync(List<Map<String, dynamic>> body) async {
+    final synced = body.toList();
+    synced.addAll(await getStoredProperties());
+
+    return synced;
+  }
+
+  Future<void> _post(List<Map<String, dynamic>> payloads) async {
+    final synced = await _sync(payloads);
+    logger.d('[EAnalytics] - Request to track : \n${synced.join('\n ')}');
+
+    Eulerian._instance.postHandler!(synced, onSuccess: (_) async {
+      clearStorage();
+    }, onFail: (body) async {
+      save(body);
+    });
   }
 }
