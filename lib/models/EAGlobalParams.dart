@@ -23,6 +23,7 @@ class EAGlobalParams {
   }
 
   final _buildMemo = AsyncMemoizer<Map<EAPropertyKey, dynamic>>();
+  Map<EAPropertyKey, dynamic>? asyncParams;
 
   Future<Map<EAPropertyKey, dynamic>> _build() => _buildMemo.runOnce(() async {
         var asyncParams = <EAPropertyKey, dynamic>{};
@@ -37,10 +38,13 @@ class EAGlobalParams {
         return asyncParams;
       });
 
-  static Future<Map<EAPropertyKey, dynamic>> build() async {
+  static Map<EAPropertyKey, dynamic> build() {
+    assert(_instance.asyncParams != null, '[Eanalytics] - EAGlobalParams not initialized');
+    if (_instance.asyncParams == null) throw Exception();
+
     var globalParams = <EAPropertyKey, dynamic>{};
 
-    globalParams.addAll(await _instance._build());
+    globalParams.addAll(_instance.asyncParams!);
     globalParams[EAPropertyKey.SDK_VERSION] = Eulerian.SDK_VERSION;
     globalParams[EAPropertyKey.EPOCH] = getSecondsSinceEpoch();
 
@@ -50,7 +54,7 @@ class EAGlobalParams {
   static Future<void> init() async {
     try {
       Eulerian.logger.d('[EAnalytics] - EAGlobalParams initialization');
-      await _instance._build();
+      _instance.asyncParams = await _instance._build();
     } catch (e) {
       Eulerian.logger.e('[EAnalytics] - Error while initializing global parameters', e);
     }
