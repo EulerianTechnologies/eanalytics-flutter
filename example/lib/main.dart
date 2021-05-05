@@ -1,4 +1,5 @@
 import 'package:eanalytics/eanalytics.dart';
+import 'package:eanalytics/models/EAProperties.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    Eulerian.init('lostsolution.io', requestTrackingAuthorization: true);
+    Eulerian.init('et.eulerian.net', requestTrackingAuthorization: true);
     super.initState();
   }
 
@@ -26,11 +27,15 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Eularian Analytics Flutter'),
       ),
-      body: Center(
-        child: Text(
-          '🧠',
-          style: TextStyle(fontSize: 100.0),
-        ),
+      body: Row(
+        children: [
+          OutlinedButton(
+            onPressed: () {
+              Eulerian.track([new EAProperties()]);
+            },
+            child: Text('Track EAProperty'),
+          )
+        ],
       ),
     );
   }
