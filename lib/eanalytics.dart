@@ -34,20 +34,24 @@ class Eulerian {
       await EAGlobalParams.init();
       Eulerian._instance.initialized = true;
       Eulerian._instance.postHandler = createPostHandler(domain, logger);
+
+      /* sync saved properties */
+      Eulerian._instance._post(await getStoredProperties());
+
       logger.d('[EAnalytics] - Initilization succeeded for domain $domain');
     } catch (e) {
       logger.e('[EAnalytics] - Initialization failed ${e.toString()}');
     }
   }
 
-  static void track(List<EAProperties> properties) {
+  static Future<void> track(List<EAProperties> properties) async {
     assert(Eulerian._instance.initialized, 'Eulerian Tracker was not initialized. You must call Eulerian.Init()');
     if (!Eulerian._instance.initialized) return;
 
-    Eulerian._instance._post(properties.fold(<Map<String, dynamic>>[], (acc, prop) {
+    Eulerian._instance._post(await Eulerian._instance._sync(properties.fold(<Map<String, dynamic>>[], (acc, prop) {
       acc.add(prop.toJson());
       return acc;
-    }));
+    })));
   }
 
   Future<List<Map<String, dynamic>>> _sync(List<Map<String, dynamic>> body) async {
@@ -58,12 +62,14 @@ class Eulerian {
   }
 
   Future<void> _post(List<Map<String, dynamic>> payloads) async {
-    final synced = await _sync(payloads);
-    logger.d('[EAnalytics] - Request to track : \n${synced.join('\n ')}');
+    if (payloads.isEmpty) return;
 
-    Eulerian._instance.postHandler!(synced, onSuccess: (_) async {
+    logger.d('[EAnalytics] - Request to track : \n${payloads.join('\n ')}');
+
+    Eulerian._instance.postHandler!(payloads, onSuccess: (_) async {
       clearStorage();
     }, onFail: (body) async {
+      logger.e('[EAnalytics] - POST request failed, storing payloads to storage');
       save(body);
     });
   }
