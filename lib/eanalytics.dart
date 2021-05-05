@@ -1,7 +1,7 @@
 library eanalytics;
 
 import 'package:eanalytics/models/EAGlobalParams.dart';
-import 'package:eanalytics/models/EAProperties.dart';
+import 'package:eanalytics/models/EAProperty.dart';
 import 'package:eanalytics/utils/post.dart';
 import 'package:eanalytics/utils/storage.dart';
 import 'package:eanalytics/utils/systemInfo.dart';
@@ -44,7 +44,7 @@ class Eulerian {
     }
   }
 
-  static Future<void> track(List<EAProperties> properties) async {
+  static Future<void> track(List<EAProperty> properties) async {
     assert(Eulerian._instance.initialized, 'Eulerian Tracker was not initialized. You must call Eulerian.Init()');
     if (!Eulerian._instance.initialized) return;
 

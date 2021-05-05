@@ -3,10 +3,10 @@ library eanalytics;
 import 'package:eanalytics/models/EAGlobalParams.dart';
 import 'package:eanalytics/models/keys/EAPropertyKey.dart';
 
-class EAProperties {
+class EAProperty {
   Map<EAPropertyKey, dynamic> _payload = {};
 
-  EAProperties() {
+  EAProperty() {
     _payload.addAll(EAGlobalParams.build());
   }
 

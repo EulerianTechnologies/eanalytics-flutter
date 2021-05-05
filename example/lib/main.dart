@@ -1,5 +1,5 @@
 import 'package:eanalytics/eanalytics.dart';
-import 'package:eanalytics/models/EAProperties.dart';
+import 'package:eanalytics/models/EAProperty.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
         children: [
           OutlinedButton(
             onPressed: () {
-              Eulerian.track([new EAProperties()]);
+              Eulerian.track([new EAProperty()]);
             },
             child: Text('Track EAProperty'),
           )
