@@ -1,5 +1,6 @@
 import 'package:async/async.dart';
 import 'package:eanalytics/src/eulerian.dart';
+import 'package:eanalytics/src/utils/serializable.dart';
 import 'package:eanalytics/src/utils/systemInfo.dart';
 import 'package:eanalytics/src/utils/time.dart';
 
@@ -15,7 +16,7 @@ const SystemInfoMapping = <SystemInfoKey, EAPropertyKey>{
   SystemInfoKey.UUID: EAPropertyKey.EUIDL
 };
 
-class EAGlobalParams {
+class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
   static final EAGlobalParams _instance = EAGlobalParams._internal();
   EAGlobalParams._internal();
 
@@ -24,12 +25,10 @@ class EAGlobalParams {
   }
 
   final _buildMemo = AsyncMemoizer<Map<EAPropertyKey, dynamic>>();
-  Map<EAPropertyKey, dynamic>? asyncParams;
 
   Future<Map<EAPropertyKey, dynamic>> _build() => _buildMemo.runOnce(() async {
         var asyncParams = <EAPropertyKey, dynamic>{};
-        final systemInfo = (await getSystemInfo())
-          ..removeWhere((_, value) => value == null || (value is String) && value.isEmpty);
+        final systemInfo = (await getSystemInfo())..removeWhere(filterEmpty);
 
         asyncParams.addAll(systemInfo.map<EAPropertyKey, dynamic>((key, value) {
           return new MapEntry(SystemInfoMapping[key] as EAPropertyKey, value);
@@ -40,13 +39,9 @@ class EAGlobalParams {
       });
 
   static Map<EAPropertyKey, dynamic> build() {
-    assert(_instance.asyncParams != null, '[Eanalytics] - EAGlobalParams not initialized');
-    if (_instance.asyncParams == null) throw Exception();
-
     var globalParams = <EAPropertyKey, dynamic>{};
 
-    globalParams.addAll(_instance.asyncParams!);
-    globalParams[EAPropertyKey.SDK_VERSION] = Eulerian.SDK_VERSION;
+    globalParams.addAll(_instance.payload);
     globalParams[EAPropertyKey.EPOCH] = getSecondsSinceEpoch();
 
     return globalParams;
@@ -55,7 +50,8 @@ class EAGlobalParams {
   static Future<void> init() async {
     try {
       Eulerian.logger.d('[EAnalytics] - EAGlobalParams initialization');
-      _instance.asyncParams = await _instance._build();
+      _instance.payload = await _instance._build();
+      _instance.payload[EAPropertyKey.SDK_VERSION] = Eulerian.SDK_VERSION;
     } catch (e) {
       Eulerian.logger.e('[EAnalytics] - Error while initializing global parameters', e);
     }
