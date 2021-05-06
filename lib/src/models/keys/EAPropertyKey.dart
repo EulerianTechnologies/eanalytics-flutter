@@ -18,7 +18,12 @@ enum EAPropertyKey {
   PAGE_ACTION,
   PAGE_PROPERTY,
   PAGE_NEW_CUSTOMER,
-  PAGE_CFLAG
+  PAGE_CFLAG,
+  PRODUCTS,
+  PRODUCT_REF,
+  PRODUCT_NAME,
+  PRODUCT_PARAMS,
+  PRODUCT_GROUP
 }
 
 extension EAPropertyKeyExtension on EAPropertyKey {
@@ -39,9 +44,9 @@ extension EAPropertyKeyExtension on EAPropertyKey {
       case EAPropertyKey.APP_VERSION:
         return "ea-appversion";
       case EAPropertyKey.ADID:
-        return "ea-unity-adid";
+        return "ea-flutter-adid";
       case EAPropertyKey.SDK_VERSION:
-        return "ea-unity-sdk-version";
+        return "ea-flutter-sdk-version";
       case EAPropertyKey.PAGE_LATITUDE:
         return "ea-lat";
       case EAPropertyKey.PAGE_LONGITUDE:
@@ -64,6 +69,16 @@ extension EAPropertyKeyExtension on EAPropertyKey {
         return "newcustomer";
       case EAPropertyKey.PAGE_CFLAG:
         return "cflag";
+      case EAPropertyKey.PRODUCTS:
+        return 'products';
+      case EAPropertyKey.PRODUCT_REF:
+        return 'ref';
+      case EAPropertyKey.PRODUCT_NAME:
+        return 'name';
+      case EAPropertyKey.PRODUCT_PARAMS:
+        return 'params';
+      case EAPropertyKey.PRODUCT_GROUP:
+        return 'group';
     }
   }
 }
