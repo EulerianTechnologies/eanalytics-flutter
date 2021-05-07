@@ -1,5 +1,6 @@
 import 'package:async/async.dart';
 import 'package:eanalytics/src/eulerian.dart';
+import 'package:eanalytics/src/utils/logger.dart';
 import 'package:eanalytics/src/utils/serializable.dart';
 import 'package:eanalytics/src/utils/systemInfo.dart';
 import 'package:eanalytics/src/utils/time.dart';
@@ -17,6 +18,7 @@ const SystemInfoMapping = <SystemInfoKey, EAPropertyKey>{
 };
 
 class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
+  static final _logger = EALogger();
   static final EAGlobalParams _instance = EAGlobalParams._internal();
   EAGlobalParams._internal();
 
@@ -34,7 +36,7 @@ class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
           return new MapEntry(SystemInfoMapping[key] as EAPropertyKey, value);
         }));
 
-        Eulerian.logger.d('[EAnalytics] - EAGlobalParams built ${asyncParams.toString()}');
+        _logger.debug('EAGlobalParams built ${asyncParams.toString()}');
         return asyncParams;
       });
 
@@ -49,11 +51,11 @@ class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
 
   static Future<void> init() async {
     try {
-      Eulerian.logger.d('[EAnalytics] - EAGlobalParams initialization');
+      _logger.debug('EAGlobalParams initialization');
       _instance.payload = await _instance._build();
       _instance.payload[EAPropertyKey.SDK_VERSION] = Eulerian.SDK_VERSION;
     } catch (e) {
-      Eulerian.logger.e('[EAnalytics] - Error while initializing global parameters', e);
+      _logger.error('Error while initializing global parameters ${e.toString()}');
     }
   }
 }
