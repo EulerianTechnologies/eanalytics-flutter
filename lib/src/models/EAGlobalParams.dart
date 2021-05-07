@@ -33,7 +33,7 @@ class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
         final systemInfo = (await getSystemInfo())..removeWhere(filterEmpty);
 
         asyncParams.addAll(systemInfo.map<EAPropertyKey, dynamic>((key, value) {
-          return new MapEntry(SystemInfoMapping[key] as EAPropertyKey, value);
+          return MapEntry(SystemInfoMapping[key] as EAPropertyKey, value);
         }));
 
         _logger.debug('EAGlobalParams built ${asyncParams.toString()}');

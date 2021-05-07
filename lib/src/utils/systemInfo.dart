@@ -12,7 +12,7 @@ Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
 
   var systemInfo = <SystemInfoKey, dynamic>{};
 
-  final device = new DeviceInfoPlugin();
+  final device = DeviceInfoPlugin();
   final packageInfo = await PackageInfo.fromPlatform();
 
   systemInfo.addAll(parsePackageInfo(packageInfo));

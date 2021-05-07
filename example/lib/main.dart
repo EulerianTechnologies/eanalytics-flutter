@@ -36,17 +36,17 @@ class _HomeState extends State<Home> {
           OutlinedButton(
             onPressed: () {
               EAnalytics.Eulerian.track([
-                new EAnalytics.EAProperty(path: '/home')
+                EAnalytics.EAProperty(path: '/home')
                   ..setEmail('johndoe@eulerian.dev')
-                  ..setProperty(new EAnalytics.SiteCentric()..addParam('prop', ['foo', 'baz']))
-                  ..setCFlag(new EAnalytics.SiteCentric()..addParam('cflag_', ['foo']))
+                  ..setProperty(EAnalytics.SiteCentric()..addParam('prop', ['foo', 'baz']))
+                  ..setCFlag(EAnalytics.SiteCentric()..addParam('cflag_', ['foo']))
               ]);
             },
             child: Text('EAProperty'),
           ),
           OutlinedButton(
             onPressed: () => EAnalytics.Eulerian.track([
-              new EAnalytics.EAProducts(path: '/add/product')
+              EAnalytics.EAProducts(path: '/add/product')
                 ..addProduct(EAnalytics.Product(
                     ref: 'p1',
                     name: 'Product 1',
