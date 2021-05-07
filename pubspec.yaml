@@ -1,8 +1,7 @@
 name: eanalytics
-description: A new Flutter package project.
+description: Eulerian Technologies - EAnalytics Flutter SDK.
 version: 0.0.1
-author:
-homepage:
+homepage: https://www.eulerian.com/
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
