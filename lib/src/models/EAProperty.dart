@@ -14,7 +14,8 @@ class EAProperty with Serializable<EAPropertyKey, dynamic> {
 
   void setPath(String path) {
     assert(path.isNotEmpty, 'Path must not be null or empty');
-    payload[EAPropertyKey.PAGE_PATH] = '${path.startsWith('/') ? '' : '/'}$path';
+    payload[EAPropertyKey.PAGE_PATH] =
+        '${path.startsWith('/') ? '' : '/'}$path';
   }
 
   void setLocation({required double latitude, required double longitude}) {

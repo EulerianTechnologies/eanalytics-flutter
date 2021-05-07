@@ -4,7 +4,10 @@ import 'package:eanalytics/src/models/keys/EAPropertyKey.dart';
 import 'package:eanalytics/src/utils/serializable.dart';
 
 class Action with Serializable<EAPropertyKey, dynamic> {
-  Action({required String actionRef, required String actionIn, List<String>? actionOut}) {
+  Action(
+      {required String actionRef,
+      required String actionIn,
+      List<String>? actionOut}) {
     assert(actionRef.isNotEmpty && actionIn.isNotEmpty,
         "Action must have at least 'in' or 'ref' parameter set to be valid.");
 

@@ -22,10 +22,12 @@ PostHandler createPostHandler(String domain, EALogger logger) {
         body: jsonEncode(body),
       );
 
-      if (response.statusCode != 200) throw HttpException('${response.statusCode}');
+      if (response.statusCode != 200)
+        throw HttpException('${response.statusCode}');
       if (onSuccess != null) await onSuccess(body);
     } catch (e) {
-      logger.error('Error on post request to ${url.toString()} - ${e.toString()}');
+      logger.error(
+          'Error on post request to ${url.toString()} - ${e.toString()}');
       if (onFail != null) await onFail(body);
     }
   };

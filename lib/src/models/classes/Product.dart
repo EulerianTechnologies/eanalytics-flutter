@@ -5,7 +5,8 @@ import 'package:eanalytics/src/models/keys/EAPropertyKey.dart';
 import 'package:eanalytics/src/utils/serializable.dart';
 
 class Product with Serializable<EAPropertyKey, dynamic> {
-  Product({required String ref, String? name, String? group, Params? parameters}) {
+  Product(
+      {required String ref, String? name, String? group, Params? parameters}) {
     setRef(ref);
     if (name != null) setName(name);
     if (group != null) setGroup(group);

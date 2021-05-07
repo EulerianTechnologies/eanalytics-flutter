@@ -23,8 +23,10 @@ class EAEstimate extends EAProperty {
   }
 
   void addProduct({required Product product, double? amount, int? quantity}) {
-    if (product.payload[EAPropertyKey.PRODUCT_AMOUNT] == null && amount != null) product.setAmount(amount);
-    if (product.payload[EAPropertyKey.PRODUCT_QUANTITY] == null && quantity != null) product.setQuantity(quantity);
+    if (product.payload[EAPropertyKey.PRODUCT_AMOUNT] == null && amount != null)
+      product.setAmount(amount);
+    if (product.payload[EAPropertyKey.PRODUCT_QUANTITY] == null &&
+        quantity != null) product.setQuantity(quantity);
 
     products.add(product);
     payload[EAPropertyKey.ESTIMATE_PRODUCTS] = products;

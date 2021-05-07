@@ -8,7 +8,8 @@ import 'package:advertising_id/advertising_id.dart';
 enum SystemInfoKey { OS, MODEL, UUID, BUNDLE_ID, APP_NAME, APP_VERSION, AD_ID }
 
 Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
-  if (!Platform.isAndroid && !Platform.isIOS) throw PlatformException(code: 'Unsupported platform');
+  if (!Platform.isAndroid && !Platform.isIOS)
+    throw PlatformException(code: 'Unsupported platform');
 
   var systemInfo = <SystemInfoKey, dynamic>{};
 
@@ -17,7 +18,8 @@ Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
 
   systemInfo.addAll(parsePackageInfo(packageInfo));
 
-  if (Platform.isAndroid) systemInfo.addAll(parseAndroidInfo(await device.androidInfo));
+  if (Platform.isAndroid)
+    systemInfo.addAll(parseAndroidInfo(await device.androidInfo));
   if (Platform.isIOS) systemInfo.addAll(parseIosInfo(await device.iosInfo));
 
   systemInfo[SystemInfoKey.AD_ID] = await getAdvertiserId(false);
@@ -27,7 +29,8 @@ Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
 
 Map<SystemInfoKey, String?> parseAndroidInfo(AndroidDeviceInfo info) {
   return <SystemInfoKey, String?>{
-    SystemInfoKey.OS: 'Android OS ${info.version.release} (SDK ${info.version.sdkInt})',
+    SystemInfoKey.OS:
+        'Android OS ${info.version.release} (SDK ${info.version.sdkInt})',
     SystemInfoKey.MODEL: '${info.manufacturer} ${info.model}',
     SystemInfoKey.UUID: info.androidId
   };

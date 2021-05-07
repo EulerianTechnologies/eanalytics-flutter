@@ -15,7 +15,8 @@ bool filterEmpty(dynamic _, dynamic value) =>
 
 Map<String, dynamic> toJSON<F, T extends Map>(T payload) {
   payload.removeWhere(filterEmpty);
-  return payload.map((key, value) => (MapEntry(key is EAPropertyKey ? key.name : key as String, traverse(value))));
+  return payload.map((key, value) => (MapEntry(
+      key is EAPropertyKey ? key.name : key as String, traverse(value))));
 }
 
 dynamic traverse(dynamic value) {

@@ -55,7 +55,8 @@ class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
       _instance.payload = await _instance._build();
       _instance.payload[EAPropertyKey.SDK_VERSION] = Eulerian.SDK_VERSION;
     } catch (e) {
-      _logger.error('Error while initializing global parameters ${e.toString()}');
+      _logger
+          .error('Error while initializing global parameters ${e.toString()}');
     }
   }
 }

@@ -6,7 +6,8 @@ import 'package:eanalytics/src/models/keys/EAPropertyKey.dart';
 
 class EAOrder extends EAEstimate {
   List<Product> products = [];
-  EAOrder({required String path, required String ref}) : super(path: path, ref: ref) {
+  EAOrder({required String path, required String ref})
+      : super(path: path, ref: ref) {
     payload.removeWhere((key, _) => key == EAPropertyKey.ESTIMATE);
   }
 
