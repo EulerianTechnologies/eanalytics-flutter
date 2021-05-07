@@ -8,6 +8,6 @@ void main() {
   });
 
   test('Calling track before init should throw', () {
-    expect(() => Eulerian.track([EAProperty()]), throwsAssertionError);
+    expect(() => Eulerian.track([EAProperty(path: '/test')]), throwsAssertionError);
   });
 }

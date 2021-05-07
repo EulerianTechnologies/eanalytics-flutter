@@ -1,4 +1,4 @@
-import 'package:eanalytics/eanalytics.dart';
+import 'package:eanalytics/eanalytics.dart' as EAnalytics;
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    Eulerian.init('et.eulerian.net', requestTrackingAuthorization: true);
+    EAnalytics.Eulerian.init('et.eulerian.net', requestTrackingAuthorization: true);
     super.initState();
   }
 
@@ -35,30 +35,38 @@ class _HomeState extends State<Home> {
         children: [
           OutlinedButton(
             onPressed: () {
-              Eulerian.track([new EAProperty()]);
+              EAnalytics.Eulerian.track([
+                new EAnalytics.EAProperty(path: '/home')
+                  ..setEmail('johndoe@eulerian.dev')
+                  ..setProperty(new EAnalytics.SiteCentric()..addParam('prop', ['foo', 'baz']))
+                  ..setCFlag(new EAnalytics.SiteCentric()..addParam('cflag_', ['foo']))
+              ]);
             },
             child: Text('EAProperty'),
           ),
           OutlinedButton(
-            onPressed: () {
-              final params = Params();
-              params.addParam('foo', 'bar');
-              params.addParam('baz', [1, 2, 3]);
-
-              final product = Product(ref: 'p1', name: 'Product 1', group: 'group_of_doom', parameters: params);
-              Eulerian.track([new EAProducts()..addProduct(product)]);
-            },
+            onPressed: () => EAnalytics.Eulerian.track([
+              new EAnalytics.EAProducts(path: '/add/product')
+                ..addProduct(EAnalytics.Product(
+                    ref: 'p1',
+                    name: 'Product 1',
+                    group: 'group_of_doom',
+                    parameters: EAnalytics.Params()..addParam('foo', 'bar')..addParam('baz', [1, 2, 3])))
+            ]),
             child: Text('Single product'),
           ),
           OutlinedButton(
-            onPressed: () {
-              final params = Params();
-              params.addParam('foo', {'baz': 'bar'});
-
-              final p1 = Product(ref: 'p1', name: 'Product 1', group: 'group_of_doom');
-              final p2 = Product(ref: 'p2', name: 'Product 2', group: 'group_of_doom', parameters: params);
-              Eulerian.track([new EAProducts()..addProduct(p1)..addProduct(p2)]);
-            },
+            onPressed: () => EAnalytics.Eulerian.track([
+              EAnalytics.EAProducts(path: '/add/products')
+                ..setLocation(latitude: 1.234543, longitude: 54.35322)
+                ..setAction(EAnalytics.Action(actionRef: 'test', actionIn: 'test_in'))
+                ..addProduct(EAnalytics.Product(ref: 'p1', name: 'Product 1', group: 'group_of_doom'))
+                ..addProduct(EAnalytics.Product(
+                    ref: 'p2',
+                    name: 'Product 2',
+                    group: 'group_of_doom',
+                    parameters: EAnalytics.Params()..addParam('foo', {'baz': 'bar'})))
+            ]),
             child: Text('Multiple products'),
           )
         ],

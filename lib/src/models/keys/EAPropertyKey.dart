@@ -23,7 +23,26 @@ enum EAPropertyKey {
   PRODUCT_REF,
   PRODUCT_NAME,
   PRODUCT_PARAMS,
-  PRODUCT_GROUP
+  PRODUCT_GROUP,
+  PRODUCT_QUANTITY,
+  PRODUCT_AMOUNT,
+  CART_SCART,
+  CART_CUMUL,
+  ACTION_REF,
+  ACTION_IN,
+  ACTION_OUT,
+  SEARCH_NAME,
+  SEARCH_RESULTS,
+  SEARCH_PARAMS,
+  SEARCH_ENGINE,
+  ESTIMATE,
+  ESTIMATE_REF,
+  ESTIMATE_AMOUNT,
+  ESTIMATE_CURRENCY,
+  ESTIMATE_TYPE,
+  ESTIMATE_PRODUCTS,
+  ORDER_ESTIMATE_REF,
+  ORDER_PAYMENT
 }
 
 extension EAPropertyKeyExtension on EAPropertyKey {
@@ -70,15 +89,47 @@ extension EAPropertyKeyExtension on EAPropertyKey {
       case EAPropertyKey.PAGE_CFLAG:
         return "cflag";
       case EAPropertyKey.PRODUCTS:
-        return 'products';
+      case EAPropertyKey.ESTIMATE_PRODUCTS:
+        return "products";
       case EAPropertyKey.PRODUCT_REF:
-        return 'ref';
+      case EAPropertyKey.ACTION_REF:
+      case EAPropertyKey.ESTIMATE_REF:
+        return "ref";
       case EAPropertyKey.PRODUCT_NAME:
-        return 'name';
+      case EAPropertyKey.SEARCH_NAME:
+        return "name";
       case EAPropertyKey.PRODUCT_PARAMS:
-        return 'params';
+      case EAPropertyKey.SEARCH_PARAMS:
+        return "params";
       case EAPropertyKey.PRODUCT_GROUP:
-        return 'group';
+        return "group";
+      case EAPropertyKey.CART_SCART:
+        return "scart";
+      case EAPropertyKey.CART_CUMUL:
+        return "scartcumul";
+      case EAPropertyKey.PRODUCT_AMOUNT:
+      case EAPropertyKey.ESTIMATE_AMOUNT:
+        return "amount";
+      case EAPropertyKey.PRODUCT_QUANTITY:
+        return "quantity";
+      case EAPropertyKey.ACTION_IN:
+        return "in";
+      case EAPropertyKey.ACTION_OUT:
+        return "out";
+      case EAPropertyKey.SEARCH_RESULTS:
+        return "results";
+      case EAPropertyKey.SEARCH_ENGINE:
+        return "isearchengine";
+      case EAPropertyKey.ESTIMATE:
+        return "estimate";
+      case EAPropertyKey.ESTIMATE_CURRENCY:
+        return "currency";
+      case EAPropertyKey.ESTIMATE_TYPE:
+        return "type";
+      case EAPropertyKey.ORDER_ESTIMATE_REF:
+        return "estimateref";
+      case EAPropertyKey.ORDER_PAYMENT:
+        return "payment";
     }
   }
 }

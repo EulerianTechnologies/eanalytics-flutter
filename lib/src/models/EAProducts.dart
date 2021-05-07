@@ -7,7 +7,7 @@ import 'package:eanalytics/src/models/keys/EAPropertyKey.dart';
 class EAProducts extends EAProperty {
   List<Product> products = [];
 
-  EAProducts() : super();
+  EAProducts({required String path}) : super(path: path);
 
   void addProduct(Product product) {
     products.add(product);
