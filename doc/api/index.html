@@ -29,7 +29,7 @@
 <header id="title">
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
-    <li class="self-crumb">eanalytics package</li>
+    <li><a href="https://github.com/EulerianTechnologies/eanalytics-flutter">eanalytics package</a></li>
   </ol>
   <div class="self-name">eanalytics</div>
   <form class="search navbar-right" role="search">
@@ -48,7 +48,7 @@
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li class="self-crumb">eanalytics package</li>
+  <li><a href="https://github.com/EulerianTechnologies/eanalytics-flutter">eanalytics package</a></li>
 </ol>
 
 
@@ -63,8 +63,27 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <h1 id="eanalytics-flutter">eanalytics-flutter</h1>
-<h3 id="ios-setup-">iOS Setup 📱</h3>
+  <h1 id="eanalytics---flutter-sdk">EAnalytics - Flutter SDK</h1>
+<h2 id="initialization">Initialization</h2>
+<p>Call <code>Eulerian.init</code> <strong>ONCE</strong> before any tracking request at the top-level of your app.
+It will try to sync any failed tracking attemps locally stored.</p>
+<pre class="language-dart"><code class="language-dart">  await Eulerian.init('test.domain.dev')
+</code></pre>
+<blockquote>
+<p>You can optionnally request tracking authorization for iOS devices by passing the requestTrackingAuhtorization flag to the init method.</p>
+</blockquote>
+<p>To track <code>EAProperties</code>, call <code>Eulerian.track</code> from anywhere in your flutter app.
+If the POST request fails, it will be stored in local storage for future retry.</p>
+<blockquote>
+<p>EAProperties include EACart, EAEstimate, EAOrder, EAProducts, EASearch -
+Additional models are here to help building EAProperties : Action, Params, Product, Search, SiteCentric</p>
+</blockquote>
+<pre class="language-dart"><code class="language-dart">  Eulerian.track([
+    EAProducts(path: '/add/products')
+      ..addProduct(Product(ref: 'p1', name: 'Product 1', group: 'test_group'))
+  ])
+</code></pre>
+<h2 id="ios-setup-">iOS Setup 📱</h2>
 <p>If you're planning on using the advertisingIdentifier : make sure you update your <code>Info.plist</code> file located in ios/Runner directory and add the <code>NSUserTrackingUsageDescription</code> key with a custom message describing your usage</p>
 <pre class="language-xml"><code class="language-xml">&lt;key&gt;NSUserTrackingUsageDescription&lt;/key&gt;
 &lt;string&gt;Request tracking...&lt;/string&gt;

@@ -64,12 +64,11 @@
     <li><a href="../../eanalytics/EAProducts/EAProducts.html">EAProducts</a></li>
 
 
-    <li class="section-title">
+    <li class="section-title inherited">
       <a href="../../eanalytics/EAProducts-class.html#instance-properties">Properties</a>
     </li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="../../eanalytics/EAProperty/payload.html">payload</a></li>
-    <li><a href="../../eanalytics/EAProducts/products.html">products</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
     <li class="section-title"><a href="../../eanalytics/EAProducts-class.html#instance-methods">Methods</a></li>
@@ -115,14 +114,17 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Adds a product to the EAProducts instance</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void addProduct(Product product) {
-  products.add(product);
-  payload[EAPropertyKey.PRODUCTS] = products;
+  _products.add(product);
+  payload[EAPropertyKey.PRODUCTS] = _products;
 }</code></pre>
 </section>
 

@@ -64,12 +64,11 @@
     <li><a href="../../eanalytics/EACart/EACart.html">EACart</a></li>
 
 
-    <li class="section-title">
+    <li class="section-title inherited">
       <a href="../../eanalytics/EACart-class.html#instance-properties">Properties</a>
     </li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li class="inherited"><a href="../../eanalytics/EAProperty/payload.html">payload</a></li>
-    <li><a href="../../eanalytics/EACart/products.html">products</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
     <li class="section-title"><a href="../../eanalytics/EACart-class.html#instance-methods">Methods</a></li>
@@ -118,6 +117,9 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Adds a product to the EACart instance</p>
+</section>
 
 
     
@@ -127,8 +129,8 @@
   if (product.payload[EAPropertyKey.PRODUCT_AMOUNT] == null &amp;&amp; amount != null) product.setAmount(amount);
   if (product.payload[EAPropertyKey.PRODUCT_QUANTITY] == null &amp;&amp; quantity != null) product.setQuantity(quantity);
 
-  products.add(product);
-  payload[EAPropertyKey.PRODUCTS] = products;
+  _products.add(product);
+  payload[EAPropertyKey.PRODUCTS] = _products;
 }</code></pre>
 </section>
 

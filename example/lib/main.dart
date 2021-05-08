@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Eularian Analytics TRACKERS'),
+        title: const Text('Eulerian Analytics TRACKERS'),
       ),
       body: GridView.count(
         primary: false,
