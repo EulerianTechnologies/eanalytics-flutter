@@ -7,7 +7,8 @@ import 'package:eanalytics/src/utils/serializable.dart';
 /// Product helper class
 class Product with Serializable<EAPropertyKey, dynamic> {
   /// Constructor sets the *ref*, *name*?, *group*? and *params*? properties
-  Product({required String ref, String? name, String? group, Params? parameters}) {
+  Product(
+      {required String ref, String? name, String? group, Params? parameters}) {
     setRef(ref);
     if (name != null) setName(name);
     if (group != null) setGroup(group);
