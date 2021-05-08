@@ -2,7 +2,7 @@ name: eanalytics
 description: Eulerian Technologies - EAnalytics Flutter SDK.
   Register at https://www.eulerian.com/
 version: 0.0.1
-homepage: https://www.eulerian.com/
+homepage: https://github.com/EulerianTechnologies/eanalytics-flutter
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
