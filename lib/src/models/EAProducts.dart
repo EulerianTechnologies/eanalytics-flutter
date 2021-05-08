@@ -4,13 +4,16 @@ import 'package:eanalytics/eanalytics.dart';
 import 'package:eanalytics/src/models/classes/Product.dart';
 import 'package:eanalytics/src/models/keys/EAPropertyKey.dart';
 
+/// EAProducts payload
 class EAProducts extends EAProperty {
-  List<Product> products = [];
+  List<Product> _products = [];
 
+  /// Constructor sets the *path* property
   EAProducts({required String path}) : super(path: path);
 
+  /// Adds a product to the EAProducts instance
   void addProduct(Product product) {
-    products.add(product);
-    payload[EAPropertyKey.PRODUCTS] = products;
+    _products.add(product);
+    payload[EAPropertyKey.PRODUCTS] = _products;
   }
 }

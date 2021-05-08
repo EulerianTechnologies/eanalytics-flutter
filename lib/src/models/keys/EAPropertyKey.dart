@@ -1,3 +1,6 @@
+library eanalytics;
+
+/// All valid Eulerian payload properties
 enum EAPropertyKey {
   EOS,
   EHW,
@@ -45,7 +48,10 @@ enum EAPropertyKey {
   ORDER_PAYMENT
 }
 
+/// Enum extension to get property keys.
+/// used during serialization of payload
 extension EAPropertyKeyExtension on EAPropertyKey {
+  /// property name getter
   String get name {
     switch (this) {
       case EAPropertyKey.EOS:

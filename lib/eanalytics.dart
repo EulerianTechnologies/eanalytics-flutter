@@ -1,6 +1,9 @@
 library eanalytics;
 
 export 'src/eulerian.dart';
+
+export 'src/models/keys/EAPropertyKey.dart';
+
 export 'src/models/EAProperty.dart';
 export 'src/models/EAProducts.dart';
 export 'src/models/EACart.dart';

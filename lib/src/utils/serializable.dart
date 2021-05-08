@@ -1,9 +1,13 @@
 import 'package:eanalytics/src/models/keys/EAPropertyKey.dart';
 import 'package:flutter/foundation.dart';
 
+/// Generic serializable mixin
 mixin Serializable<K, V> {
+  /// internal payload Map<K, V>
   @protected
   Map<K, V> payload = {};
+
+  /// Serializes payload
   Map<String, dynamic> toJson() => toJSON(payload);
 }
 
@@ -15,8 +19,7 @@ bool filterEmpty(dynamic _, dynamic value) =>
 
 Map<String, dynamic> toJSON<F, T extends Map>(T payload) {
   payload.removeWhere(filterEmpty);
-  return payload.map((key, value) => (MapEntry(
-      key is EAPropertyKey ? key.name : key as String, traverse(value))));
+  return payload.map((key, value) => (MapEntry(key is EAPropertyKey ? key.name : key as String, traverse(value))));
 }
 
 dynamic traverse(dynamic value) {
