@@ -27,6 +27,14 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  plugin:
+    platforms:
+      android:
+        default_package: eanalytics
+      ios:
+        default_package: eanalytics
+      web:
+        default_package: eanalytics
 
   # To add assets to your package, add an assets section, like this:
   # assets:
