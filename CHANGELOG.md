@@ -1,3 +1,8 @@
+## [0.0.4]
+
+- Fixes for web platform
+- Explicitly declare platform support
+
 ## [0.0.3]
 
 - Support web platform
