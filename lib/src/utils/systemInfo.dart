@@ -21,8 +21,10 @@ Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
 
   if (!kIsWeb && Platform.isAndroid)
     systemInfo.addAll(parseAndroidInfo(await device.androidInfo));
+
   if (!kIsWeb && Platform.isIOS)
     systemInfo.addAll(parseIosInfo(await device.iosInfo));
+
   if (kIsWeb) systemInfo.addAll(parseWebInfo(await device.webBrowserInfo));
 
   systemInfo[SystemInfoKey.AD_ID] = await getAdvertiserId(false);

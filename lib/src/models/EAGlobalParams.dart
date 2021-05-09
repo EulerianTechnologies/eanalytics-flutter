@@ -4,6 +4,7 @@ import 'package:eanalytics/src/utils/logger.dart';
 import 'package:eanalytics/src/utils/serializable.dart';
 import 'package:eanalytics/src/utils/systemInfo.dart';
 import 'package:eanalytics/src/utils/time.dart';
+import 'package:flutter/foundation.dart';
 
 import 'keys/EAPropertyKey.dart';
 
@@ -45,6 +46,8 @@ class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
 
     globalParams.addAll(_instance.payload);
     globalParams[EAPropertyKey.EPOCH] = getSecondsSinceEpoch();
+
+    if (kIsWeb) globalParams[EAPropertyKey.URL] = Uri.base.path;
 
     return globalParams;
   }
