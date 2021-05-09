@@ -1,26 +1,31 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:package_info/package_info.dart';
-import 'package:advertising_id/advertising_id.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
+import 'package:advertising_id/advertising_id.dart'
+    if (dart.library.js) 'package:eanalytics/src/utils/stubs/advertising_id.dart';
 
 enum SystemInfoKey { OS, MODEL, UUID, BUNDLE_ID, APP_NAME, APP_VERSION, AD_ID }
 
 Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
-  if (!Platform.isAndroid && !Platform.isIOS)
+  if (!kIsWeb && !Platform.isAndroid && !Platform.isIOS)
     throw PlatformException(code: 'Unsupported platform');
-
   var systemInfo = <SystemInfoKey, dynamic>{};
 
+  systemInfo.addAll(parsePackageInfo(await PackageInfo.fromPlatform()));
+
   final device = DeviceInfoPlugin();
-  final packageInfo = await PackageInfo.fromPlatform();
 
-  systemInfo.addAll(parsePackageInfo(packageInfo));
-
-  if (Platform.isAndroid)
+  if (!kIsWeb && Platform.isAndroid)
     systemInfo.addAll(parseAndroidInfo(await device.androidInfo));
-  if (Platform.isIOS) systemInfo.addAll(parseIosInfo(await device.iosInfo));
+
+  if (!kIsWeb && Platform.isIOS)
+    systemInfo.addAll(parseIosInfo(await device.iosInfo));
+
+  if (kIsWeb) systemInfo.addAll(parseWebInfo(await device.webBrowserInfo));
 
   systemInfo[SystemInfoKey.AD_ID] = await getAdvertiserId(false);
 
@@ -44,6 +49,13 @@ Map<SystemInfoKey, String?> parseIosInfo(IosDeviceInfo info) {
   };
 }
 
+Map<SystemInfoKey, String?> parseWebInfo(WebBrowserInfo info) {
+  return <SystemInfoKey, String?>{
+    SystemInfoKey.OS: '${info.platform}',
+    SystemInfoKey.MODEL: '${describeEnum(info.browserName)}'
+  };
+}
+
 Map<SystemInfoKey, String?> parsePackageInfo(PackageInfo info) {
   return <SystemInfoKey, String?>{
     SystemInfoKey.BUNDLE_ID: info.packageName,
@@ -54,6 +66,9 @@ Map<SystemInfoKey, String?> parsePackageInfo(PackageInfo info) {
 
 Future<String?> getAdvertiserId(bool requestTrackingAuthorization) async {
   try {
+    if (kIsWeb)
+      throw PlatformException(
+          code: "advertiserId not supported on web platform");
     return await AdvertisingId.id(requestTrackingAuthorization);
   } on PlatformException {
     return null;

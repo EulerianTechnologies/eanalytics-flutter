@@ -4,6 +4,7 @@ import 'package:eanalytics/src/utils/logger.dart';
 import 'package:eanalytics/src/utils/serializable.dart';
 import 'package:eanalytics/src/utils/systemInfo.dart';
 import 'package:eanalytics/src/utils/time.dart';
+import 'package:flutter/foundation.dart';
 
 import 'keys/EAPropertyKey.dart';
 
@@ -46,6 +47,8 @@ class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
     globalParams.addAll(_instance.payload);
     globalParams[EAPropertyKey.EPOCH] = getSecondsSinceEpoch();
 
+    if (kIsWeb) globalParams[EAPropertyKey.URL] = Uri.base.path;
+
     return globalParams;
   }
 
@@ -55,8 +58,7 @@ class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
       _instance.payload = await _instance._build();
       _instance.payload[EAPropertyKey.SDK_VERSION] = Eulerian.SDK_VERSION;
     } catch (e) {
-      _logger
-          .error('Error while initializing global parameters ${e.toString()}');
+      _logger.error('Error while initializing global parameters $e');
     }
   }
 }
