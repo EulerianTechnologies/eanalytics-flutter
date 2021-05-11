@@ -1,3 +1,7 @@
+## [0.0.6]
+
+- Fix advertising identifier key for IOS/ANDROID
+
 ## [0.0.5]
 
 - Add ea-ios-idfv property
