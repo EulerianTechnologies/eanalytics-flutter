@@ -45,7 +45,8 @@ enum EAPropertyKey {
   ESTIMATE_TYPE,
   ESTIMATE_PRODUCTS,
   ORDER_ESTIMATE_REF,
-  ORDER_PAYMENT
+  ORDER_PAYMENT,
+  IOS_IDFV
 }
 
 /// Enum extension to get property keys.
@@ -136,6 +137,8 @@ extension EAPropertyKeyExtension on EAPropertyKey {
         return "estimateref";
       case EAPropertyKey.ORDER_PAYMENT:
         return "payment";
+      case EAPropertyKey.IOS_IDFV:
+        return "ea-ios-idfv";
     }
   }
 }

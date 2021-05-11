@@ -45,6 +45,23 @@ When initializing EAnalytics, pass the `requestTrackingAuthorization` flag to pr
   }
 ```
 
+### Global EAnalytics Properties
+
+EAnalytics will internally handle setting the following properties on your payloads based on your platform.
+
+| property name          | EAPropertyKey               | iOS                                 | Android            | Web                  |
+| ---------------------- | --------------------------- | ----------------------------------- | ------------------ | -------------------- |
+| ehw                    | `EAPropertyKey.EHW`         | ✔                                   | ✔                  | ✔                    |
+| eos                    | `EAPropertyKey.EOS`         | ✔                                   | ✔                  | ✔                    |
+| euidl                  | `EAPropertyKey.EUIDL`       | ✔                                   | ✔                  | ✘                    |
+| ea-appname             | `EAPropertyKey.APPNAME`     | ✔                                   | ✔                  | ✔                    |
+| ea-appversion          | `EAPropertyKey.APP_VERSION` | ✔                                   | ✔                  | ✔                    |
+| url                    | `EAPropertyKey.URL`         | ✔ (bundleIdentifier)                | ✔ (getPackageName) | ✔ (current url path) |
+| ea-flutter-adid        | `EAPropertyKey.ADID`        | ✔ (if requestTrackingAuthorization) | ✔                  | ✘                    |
+| ea-ios-idfv            | `EAPropertyKey.IOS_IDFV`    | ✔ (if requestTrackingAuthorization) | ✘                  | ✘                    |
+| ereplay-time           | `EAPropertyKey.EPOCH`       | ✔                                   | ✔                  | ✔                    |
+| ea-flutter-sdk-version | `EAPropertyKey.SDK_VERSION` | ✔                                   | ✔                  | ✔                    |
+
 ### Flutter SDK version
 
 `>=2.12.0 <3.0.0`

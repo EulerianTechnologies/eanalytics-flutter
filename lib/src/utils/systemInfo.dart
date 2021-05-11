@@ -8,7 +8,16 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:advertising_id/advertising_id.dart'
     if (dart.library.js) 'package:eanalytics/src/utils/stubs/advertising_id.dart';
 
-enum SystemInfoKey { OS, MODEL, UUID, BUNDLE_ID, APP_NAME, APP_VERSION, AD_ID }
+enum SystemInfoKey {
+  OS,
+  MODEL,
+  UUID,
+  BUNDLE_ID,
+  APP_NAME,
+  APP_VERSION,
+  AD_ID,
+  IOS_IDFV
+}
 
 Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
   if (!kIsWeb && !Platform.isAndroid && !Platform.isIOS)
@@ -45,7 +54,8 @@ Map<SystemInfoKey, String?> parseIosInfo(IosDeviceInfo info) {
   return <SystemInfoKey, String?>{
     SystemInfoKey.OS: '${info.systemName} ${info.systemVersion}',
     SystemInfoKey.MODEL: '${info.name} ${info.model}',
-    SystemInfoKey.UUID: info.identifierForVendor
+    SystemInfoKey.UUID: info.identifierForVendor,
+    SystemInfoKey.IOS_IDFV: info.identifierForVendor
   };
 }
 
