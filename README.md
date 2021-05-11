@@ -49,22 +49,23 @@ When initializing EAnalytics, pass the `requestTrackingAuthorization` flag to pr
 
 EAnalytics will internally handle setting the following properties on your payloads based on your platform.
 
-| property name          | EAPropertyKey               | iOS | Android | Web |
-| ---------------------- | --------------------------- | --- | ------- | --- |
-| ehw                    | `EAPropertyKey.EHW`         | ✔   | ✔       | ✔   |
-| eos                    | `EAPropertyKey.EOS`         | ✔   | ✔       | ✔   |
-| euidl                  | `EAPropertyKey.EUIDL`       | ✔   | ✔       | ✘   |
-| ea-appname             | `EAPropertyKey.APPNAME`     | ✔   | ✔       | ✔   |
-| ea-appversion          | `EAPropertyKey.APP_VERSION` | ✔   | ✔       | ✔   |
-| url \*                 | `EAPropertyKey.URL`         | ✔   | ✔       | ✔   |
-| ea-flutter-adid \*\*   | `EAPropertyKey.ADID`        | ✔   | ✔       | ✘   |
-| ea-ios-idfv \*\*       | `EAPropertyKey.IOS_IDFV`    | ✔   | ✘       | ✘   |
-| ereplay-time           | `EAPropertyKey.EPOCH`       | ✔   | ✔       | ✔   |
-| ea-flutter-sdk-version | `EAPropertyKey.SDK_VERSION` | ✔   | ✔       | ✔   |
+| property name          | EAPropertyKey                | iOS | Android | Web |
+| ---------------------- | ---------------------------- | --- | ------- | --- |
+| ehw                    | `EAPropertyKey.EHW`          | ✔   | ✔       | ✔   |
+| eos                    | `EAPropertyKey.EOS`          | ✔   | ✔       | ✔   |
+| euidl                  | `EAPropertyKey.EUIDL`        | ✔   | ✔       | ✘   |
+| ea-appname             | `EAPropertyKey.APPNAME`      | ✔   | ✔       | ✔   |
+| ea-appversion          | `EAPropertyKey.APP_VERSION`  | ✔   | ✔       | ✔   |
+| url \*                 | `EAPropertyKey.URL`          | ✔   | ✔       | ✔   |
+| ea-ios-idfv            | `EAPropertyKey.IOS_IDFV`     | ✔   | ✘       | ✘   |
+| ea-ios-idfa \*\*       | `EAPropertyKey.IOS_ADID`     | ✔   | ✘       | ✘   |
+| ea-android-adid        | `EAPropertyKey.ANDROID_ADID` | ✘   | ✔       | ✘   |
+| ereplay-time           | `EAPropertyKey.EPOCH`        | ✔   | ✔       | ✔   |
+| ea-flutter-sdk-version | `EAPropertyKey.SDK_VERSION`  | ✔   | ✔       | ✔   |
 
 > (\*) url property will be mapped to bundleIdentifier on iOS, getPackageName on Android, and current url path on web platform.
 
-> (\*\*) ea-flutter-adid / ea-ios-idfv require requestTrackingAuthorization flag on eanalytics initialization on iOS.
+> (\*\*) ea-ios-idfv require requestTrackingAuthorization flag on eanalytics initialization on iOS.
 
 ### Flutter SDK version
 
