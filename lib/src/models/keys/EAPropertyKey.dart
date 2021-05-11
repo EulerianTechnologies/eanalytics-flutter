@@ -9,7 +9,6 @@ enum EAPropertyKey {
   APPNAME,
   EPOCH,
   APP_VERSION,
-  ADID,
   SDK_VERSION,
   PAGE_LATITUDE,
   PAGE_LONGITUDE,
@@ -46,7 +45,9 @@ enum EAPropertyKey {
   ESTIMATE_PRODUCTS,
   ORDER_ESTIMATE_REF,
   ORDER_PAYMENT,
-  IOS_IDFV
+  IOS_IDFV,
+  IOS_ADID,
+  ANDROID_ADID
 }
 
 /// Enum extension to get property keys.
@@ -69,8 +70,6 @@ extension EAPropertyKeyExtension on EAPropertyKey {
         return "ereplay-time";
       case EAPropertyKey.APP_VERSION:
         return "ea-appversion";
-      case EAPropertyKey.ADID:
-        return "ea-flutter-adid";
       case EAPropertyKey.SDK_VERSION:
         return "ea-flutter-sdk-version";
       case EAPropertyKey.PAGE_LATITUDE:
@@ -139,6 +138,10 @@ extension EAPropertyKeyExtension on EAPropertyKey {
         return "payment";
       case EAPropertyKey.IOS_IDFV:
         return "ea-ios-idfv";
+      case EAPropertyKey.IOS_ADID:
+        return "ea-ios-idfa";
+      case EAPropertyKey.ANDROID_ADID:
+        return "ea-android-adid";
     }
   }
 }
