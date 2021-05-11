@@ -1,3 +1,8 @@
+## [0.0.5]
+
+- Add ea-ios-idfv property
+- Improve README documentation
+
 ## [0.0.4]
 
 - Fixes for web platform
