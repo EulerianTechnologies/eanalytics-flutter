@@ -9,7 +9,8 @@ import 'package:flutter/foundation.dart';
 import 'keys/EAPropertyKey.dart';
 
 const SystemInfoMapping = <SystemInfoKey, EAPropertyKey>{
-  SystemInfoKey.AD_ID: EAPropertyKey.ADID,
+  SystemInfoKey.IOS_ADID: EAPropertyKey.IOS_ADID,
+  SystemInfoKey.ANDROID_ADID: EAPropertyKey.ANDROID_ADID,
   SystemInfoKey.APP_NAME: EAPropertyKey.APPNAME,
   SystemInfoKey.APP_VERSION: EAPropertyKey.APP_VERSION,
   SystemInfoKey.BUNDLE_ID: EAPropertyKey.URL,

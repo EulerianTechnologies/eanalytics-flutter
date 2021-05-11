@@ -15,7 +15,8 @@ enum SystemInfoKey {
   BUNDLE_ID,
   APP_NAME,
   APP_VERSION,
-  AD_ID,
+  IOS_ADID,
+  ANDROID_ADID,
   IOS_IDFV
 }
 
@@ -28,15 +29,19 @@ Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
 
   final device = DeviceInfoPlugin();
 
-  if (!kIsWeb && Platform.isAndroid)
-    systemInfo.addAll(parseAndroidInfo(await device.androidInfo));
+  if (!kIsWeb) {
+    if (Platform.isAndroid) {
+      systemInfo.addAll(parseAndroidInfo(await device.androidInfo));
+      systemInfo[SystemInfoKey.ANDROID_ADID] = await getAdvertiserId(false);
+    }
 
-  if (!kIsWeb && Platform.isIOS)
-    systemInfo.addAll(parseIosInfo(await device.iosInfo));
+    if (Platform.isIOS) {
+      systemInfo.addAll(parseIosInfo(await device.iosInfo));
+      systemInfo[SystemInfoKey.IOS_ADID] = await getAdvertiserId(false);
+    }
+  }
 
   if (kIsWeb) systemInfo.addAll(parseWebInfo(await device.webBrowserInfo));
-
-  systemInfo[SystemInfoKey.AD_ID] = await getAdvertiserId(false);
 
   return systemInfo;
 }
