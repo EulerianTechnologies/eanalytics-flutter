@@ -1,7 +1,6 @@
 library eanalytics;
 
 import 'package:eanalytics/eanalytics.dart';
-import 'package:eanalytics/src/models/keys/EAPropertyKey.dart';
 import 'package:eanalytics/src/utils/serializable.dart';
 
 /// Search helper class
