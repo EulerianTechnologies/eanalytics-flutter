@@ -49,5 +49,9 @@
 	<false/>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>testing 1 2 3</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

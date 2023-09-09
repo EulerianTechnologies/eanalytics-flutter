@@ -1,8 +1,6 @@
 library eanalytics;
 
 import 'package:eanalytics/eanalytics.dart';
-import 'package:eanalytics/src/models/classes/Product.dart';
-import 'package:eanalytics/src/models/keys/EAPropertyKey.dart';
 
 /// EACart payload
 class EACart extends EAProperty {
@@ -20,10 +18,8 @@ class EACart extends EAProperty {
 
   /// Adds a product to the EACart instance
   void addProduct({required Product product, double? amount, int? quantity}) {
-    if (product.payload[EAPropertyKey.PRODUCT_AMOUNT] == null && amount != null)
-      product.setAmount(amount);
-    if (product.payload[EAPropertyKey.PRODUCT_QUANTITY] == null &&
-        quantity != null) product.setQuantity(quantity);
+    if (product.payload[EAPropertyKey.PRODUCT_AMOUNT] == null && amount != null) product.setAmount(amount);
+    if (product.payload[EAPropertyKey.PRODUCT_QUANTITY] == null && quantity != null) product.setQuantity(quantity);
 
     _products.add(product);
     payload[EAPropertyKey.PRODUCTS] = _products;

@@ -1,8 +1,6 @@
 library eanalytics;
 
 import 'package:eanalytics/eanalytics.dart';
-import 'package:eanalytics/src/models/classes/Product.dart';
-import 'package:eanalytics/src/models/keys/EAPropertyKey.dart';
 
 /// EAProducts payload
 class EAProducts extends EAProperty {

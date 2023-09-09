@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 0.42.0">
+  <meta name="generator" content="made with love by dartdoc 7.0.0-dev">
   <meta name="description" content="eanalytics API docs, for the Dart programming language.">
   <title>eanalytics - Dart API docs</title>
 
@@ -12,22 +12,22 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="static-assets/github.css">
-  <link rel="stylesheet" href="static-assets/styles.css">
-  <link rel="icon" href="static-assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
 
   
 </head>
 
 
-<body data-base-href=""
-      data-using-base-href="false">
+<body data-base-href="" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="https://github.com/EulerianTechnologies/eanalytics-flutter">eanalytics package</a></li>
   </ol>
@@ -35,30 +35,19 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-</header>
-
-<main>
-
-
-  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
-  <form class="search-sidebar" role="search">
-    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
-  </form>
-</header>
-
-<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="https://github.com/EulerianTechnologies/eanalytics-flutter">eanalytics package</a></li>
-</ol>
-
-
-    <h5 class="hidden-xs"><span class="package-name">eanalytics</span> <span class="package-kind">package</span></h5>
-    <ol>
-      <li class="section-title">Libraries</li>
-      <li><a href="eanalytics/eanalytics-library.html">eanalytics</a></li>
-</ol>
-
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
   </div>
+</header>
+<main>
 
   <div id="dartdoc-main-content" class="main-content">
       
@@ -98,6 +87,104 @@ Additional models are here to help building EAProperties : Action, Params, Produ
     super.initState();
   }
 </code></pre>
+<h3 id="global-eanalytics-properties">Global EAnalytics Properties</h3>
+<p>EAnalytics will internally handle setting the following properties on your payloads based on your platform.</p>
+<table>
+<thead>
+<tr>
+<th>property name</th>
+<th>EAPropertyKey</th>
+<th>iOS</th>
+<th>Android</th>
+<th>Web</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ehw</td>
+<td><code>EAPropertyKey.EHW</code></td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>eos</td>
+<td><code>EAPropertyKey.EOS</code></td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>euidl</td>
+<td><code>EAPropertyKey.EUIDL</code></td>
+<td>✔</td>
+<td>✔</td>
+<td>✘</td>
+</tr>
+<tr>
+<td>ea-appname</td>
+<td><code>EAPropertyKey.APPNAME</code></td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>ea-appversion</td>
+<td><code>EAPropertyKey.APP_VERSION</code></td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>url *</td>
+<td><code>EAPropertyKey.URL</code></td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>ea-ios-idfv</td>
+<td><code>EAPropertyKey.IOS_IDFV</code></td>
+<td>✔</td>
+<td>✘</td>
+<td>✘</td>
+</tr>
+<tr>
+<td>ea-ios-idfa **</td>
+<td><code>EAPropertyKey.IOS_ADID</code></td>
+<td>✔</td>
+<td>✘</td>
+<td>✘</td>
+</tr>
+<tr>
+<td>ea-android-adid</td>
+<td><code>EAPropertyKey.ANDROID_ADID</code></td>
+<td>✘</td>
+<td>✔</td>
+<td>✘</td>
+</tr>
+<tr>
+<td>ereplay-time</td>
+<td><code>EAPropertyKey.EPOCH</code></td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>ea-flutter-sdk-version</td>
+<td><code>EAPropertyKey.SDK_VERSION</code></td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>(*) url property will be mapped to bundleIdentifier on iOS, getPackageName on Android, and current url path on web platform.</p>
+</blockquote>
+<blockquote>
+<p>(**) ea-ios-idfv require requestTrackingAuthorization flag on eanalytics initialization on iOS.</p>
+</blockquote>
 <h3 id="flutter-sdk-version">Flutter SDK version</h3>
 <p><code>&gt;=2.12.0 &lt;3.0.0</code></p>
 </section>
@@ -110,13 +197,34 @@ Additional models are here to help building EAProperties : Action, Params, Produ
   <span class="name"><a href="eanalytics/eanalytics-library.html">eanalytics</a></span> 
 
 </dt>
-<dd> 
+<dd>
 </dd>
 
         </dl>
       </section>
 
   </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="https://github.com/EulerianTechnologies/eanalytics-flutter">eanalytics package</a></li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">eanalytics</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="eanalytics/eanalytics-library.html">eanalytics</a></li>
+</ol>
+
+  </div>
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div>
@@ -126,15 +234,16 @@ Additional models are here to help building EAProperties : Action, Params, Produ
 <footer>
   <span class="no-break">
     eanalytics
-      0.0.1
+      0.0.6
   </span>
 
   
 </footer>
 
 
-<script src="static-assets/highlight.pack.js"></script>
-<script src="static-assets/script.js"></script>
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
 
 
 

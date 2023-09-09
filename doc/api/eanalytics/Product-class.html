@@ -11,22 +11,22 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="../static-assets/github.css">
-  <link rel="stylesheet" href="../static-assets/styles.css">
-  <link rel="icon" href="../static-assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
 
   
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">eanalytics</a></li>
     <li><a href="../eanalytics/eanalytics-library.html">eanalytics</a></li>
@@ -36,60 +36,27 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
 
-
-  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
-  <form class="search-sidebar" role="search">
-    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
-  </form>
-</header>
-
-<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">eanalytics</a></li>
-  <li><a href="../eanalytics/eanalytics-library.html">eanalytics</a></li>
-  <li class="self-crumb">Product class</li>
-</ol>
-
-
-    <h5>eanalytics library</h5>
-    <ol>
-  <li class="section-title"><a href="../eanalytics/eanalytics-library.html#classes">Classes</a></li>
-  <li><a href="../eanalytics/Action-class.html">Action</a></li>
-  <li><a href="../eanalytics/EACart-class.html">EACart</a></li>
-  <li><a href="../eanalytics/EAEstimate-class.html">EAEstimate</a></li>
-  <li><a href="../eanalytics/EAOrder-class.html">EAOrder</a></li>
-  <li><a href="../eanalytics/EAProducts-class.html">EAProducts</a></li>
-  <li><a href="../eanalytics/EAProperty-class.html">EAProperty</a></li>
-  <li><a href="../eanalytics/EASearch-class.html">EASearch</a></li>
-  <li><a href="../eanalytics/Eulerian-class.html">Eulerian</a></li>
-  <li><a href="../eanalytics/Params-class.html">Params</a></li>
-  <li><a href="../eanalytics/Product-class.html">Product</a></li>
-  <li><a href="../eanalytics/Search-class.html">Search</a></li>
-  <li><a href="../eanalytics/SiteCentric-class.html">SiteCentric</a></li>
-
-  <li class="section-title"><a href="../eanalytics/eanalytics-library.html#extension">Extensions</a></li>
-  <li><a href="../eanalytics/EAPropertyKeyExtension.html">EAPropertyKeyExtension</a></li>
-
-
-
-
-
-  <li class="section-title"><a href="../eanalytics/eanalytics-library.html#enums">Enums</a></li>
-  <li><a href="../eanalytics/EAPropertyKey-class.html">EAPropertyKey</a></li>
-
-
-</ol>
-
-  </div>
-
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="eanalytics&#47;eanalytics-library-sidebar.html"
+      data-below-sidebar="eanalytics&#47;Product-class-sidebar.html">
       <div>
 <h1><span class="kind-class">Product</span> class 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
@@ -100,18 +67,19 @@
 
 
 
-    <section class="summary offset-anchor" id="constructors">
-      <h2>Constructors</h2>
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
 
-      <dl class="constructor-summary-list">
+    <dl class="constructor-summary-list">
         <dt id="Product" class="callable">
           <span class="name"><a href="../eanalytics/Product/Product.html">Product</a></span><span class="signature">(<span class="parameter" id="-param-ref">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">ref</span>, </span><span class="parameter" id="-param-name"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">name</span>, </span><span class="parameter" id="-param-group"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">group</span>, </span><span class="parameter" id="-param-parameters"><span class="type-annotation"><a href="../eanalytics/Params-class.html">Params</a>?</span> <span class="parameter-name">parameters</span>}</span>)</span>
         </dt>
         <dd>
-          Constructor sets the <em>ref</em>, <em>name</em>?, <em>group</em>? and <em>params</em>? properties 
+          Constructor sets the <em>ref</em>, <em>name</em>?, <em>group</em>? and <em>params</em>? properties
         </dd>
-      </dl>
-    </section>
+    </dl>
+  </section>
 
     <section class="summary offset-anchor inherited" id="instance-properties">
       <h2>Properties</h2>
@@ -123,19 +91,19 @@
 
 </dt>
 <dd class="inherited">
-  The hash code for this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">[...]</a>
-  <div class="features">read-only, inherited</div>
+  The hash code for this object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
         <dt id="payload" class="property inherited">
   <span class="name"><a href="../eanalytics/Product/payload.html">payload</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../eanalytics/EAPropertyKey-class.html">EAPropertyKey</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../eanalytics/EAPropertyKey.html">EAPropertyKey</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> 
 
 </dt>
 <dd class="inherited">
-  internal payload Map&lt;K, V&gt; 
-  <div class="features">@<a href="https://pub.dev/documentation/meta/1.3.0/meta/protected-constant.html">protected</a>, read / write, inherited</div>
+  internal payload Map&lt;K, V&gt;
+  <div class="features"><span class="feature">read / write</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -145,17 +113,20 @@
 
 </dt>
 <dd class="inherited">
-  A representation of the runtime type of the object. 
-  <div class="features">read-only, inherited</div>
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
       </dl>
     </section>
 
-    <section class="summary offset-anchor" id="instance-methods">
-      <h2>Methods</h2>
-      <dl class="callables">
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
         <dt id="noSuchMethod" class="callable inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
     <span class="returntype parameter">&#8594; dynamic</span>
@@ -164,8 +135,8 @@
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed. <a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">[...]</a>
-  <div class="features">inherited</div>
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -177,7 +148,7 @@
 
 </dt>
 <dd>
-  Sets the <em>amount</em> property 
+  Sets the <em>amount</em> property
   
 
 </dd>
@@ -190,7 +161,7 @@
 
 </dt>
 <dd>
-  Sets the <em>group</em> property 
+  Sets the <em>group</em> property
   
 
 </dd>
@@ -203,7 +174,7 @@
 
 </dt>
 <dd>
-  Sets the <em>name</em> property 
+  Sets the <em>name</em> property
   
 
 </dd>
@@ -216,7 +187,7 @@
 
 </dt>
 <dd>
-  Sets the <em>params</em> property 
+  Sets the <em>params</em> property
   
 
 </dd>
@@ -229,7 +200,7 @@
 
 </dt>
 <dd>
-  Sets the <em>quantity</em> property 
+  Sets the <em>quantity</em> property
   
 
 </dd>
@@ -242,7 +213,7 @@
 
 </dt>
 <dd>
-  Sets the <em>ref</em> property 
+  Sets the <em>ref</em> property
   
 
 </dd>
@@ -255,8 +226,8 @@
 
 </dt>
 <dd class="inherited">
-  Serializes payload 
-  <div class="features">inherited</div>
+  Serializes payload
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -268,17 +239,19 @@
 
 </dt>
 <dd class="inherited">
-  A string representation of this object. <a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">[...]</a>
-  <div class="features">inherited</div>
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
-      </dl>
-    </section>
-
-    <section class="summary offset-anchor inherited" id="operators">
-      <h2>Operators</h2>
-      <dl class="callables">
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
         <dt id="operator ==" class="callable inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
@@ -287,52 +260,40 @@
 
 </dt>
 <dd class="inherited">
-  The equality operator. <a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">[...]</a>
-  <div class="features">inherited</div>
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
-      </dl>
-    </section>
-
-
+    </dl>
+  </section>
+    
+    
+    
 
 
   </div> <!-- /.main-content -->
 
-  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-    <ol>
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
 
-    <li class="section-title"><a href="../eanalytics/Product-class.html#constructors">Constructors</a></li>
-    <li><a href="../eanalytics/Product/Product.html">Product</a></li>
-
-
-    <li class="section-title inherited">
-      <a href="../eanalytics/Product-class.html#instance-properties">Properties</a>
-    </li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="../eanalytics/Product/payload.html">payload</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-
-    <li class="section-title"><a href="../eanalytics/Product-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../eanalytics/Product/setAmount.html">setAmount</a></li>
-    <li><a href="../eanalytics/Product/setGroup.html">setGroup</a></li>
-    <li><a href="../eanalytics/Product/setName.html">setName</a></li>
-    <li><a href="../eanalytics/Product/setParams.html">setParams</a></li>
-    <li><a href="../eanalytics/Product/setQuantity.html">setQuantity</a></li>
-    <li><a href="../eanalytics/Product/setRef.html">setRef</a></li>
-    <li class="inherited"><a href="../eanalytics/Product/toJson.html">toJson</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
-
-    <li class="section-title inherited"><a href="../eanalytics/Product-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
-
-
-
-
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">eanalytics</a></li>
+    <li><a href="../eanalytics/eanalytics-library.html">eanalytics</a></li>
+    <li class="self-crumb">Product class</li>
 </ol>
 
+
+    <!--<h5>eanalytics library</h5>-->
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
 
 </main>
@@ -340,15 +301,16 @@
 <footer>
   <span class="no-break">
     eanalytics
-      0.0.1
+      0.0.6
   </span>
 
   
 </footer>
 
 
-<script src="../static-assets/highlight.pack.js"></script>
-<script src="../static-assets/script.js"></script>
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

@@ -11,22 +11,22 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="../static-assets/github.css">
-  <link rel="stylesheet" href="../static-assets/styles.css">
-  <link rel="icon" href="../static-assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
 
   
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">eanalytics</a></li>
     <li class="self-crumb">eanalytics library</li>
@@ -35,36 +35,28 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
 
-
-  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
-  <form class="search-sidebar" role="search">
-    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
-  </form>
-</header>
-
-<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">eanalytics</a></li>
-  <li class="self-crumb">eanalytics library</li>
-</ol>
-
-
-    <h5><span class="package-name">eanalytics</span> <span class="package-kind">package</span></h5>
-    <ol>
-      <li class="section-title">Libraries</li>
-      <li><a href="../eanalytics/eanalytics-library.html">eanalytics</a></li>
-</ol>
-
-  </div>
-
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar=""
+      data-below-sidebar="eanalytics&#47;eanalytics-library-sidebar.html">
+      
       <div>
 <h1><span class="kind-library">eanalytics</span> library 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
@@ -80,7 +72,7 @@
 
 </dt>
 <dd>
-  Action helper class 
+  Action helper class
 </dd>
 
         <dt id="EACart">
@@ -88,7 +80,7 @@
 
 </dt>
 <dd>
-  EACart payload 
+  EACart payload
 </dd>
 
         <dt id="EAEstimate">
@@ -96,7 +88,7 @@
 
 </dt>
 <dd>
-  EAEstimate payload 
+  EAEstimate payload
 </dd>
 
         <dt id="EAOrder">
@@ -104,7 +96,7 @@
 
 </dt>
 <dd>
-  EAOrder payload 
+  EAOrder payload
 </dd>
 
         <dt id="EAProducts">
@@ -112,7 +104,7 @@
 
 </dt>
 <dd>
-  EAProducts payload 
+  EAProducts payload
 </dd>
 
         <dt id="EAProperty">
@@ -120,7 +112,7 @@
 
 </dt>
 <dd>
-  Every Eulerian properties inherits from this base class 
+  Every Eulerian properties inherits from this base class
 </dd>
 
         <dt id="EASearch">
@@ -128,7 +120,7 @@
 
 </dt>
 <dd>
-  EASearch payload 
+  EASearch payload
 </dd>
 
         <dt id="Eulerian">
@@ -136,7 +128,7 @@
 
 </dt>
 <dd>
-  Eulerian Analytics singleton class 
+  Eulerian Analytics singleton class
 </dd>
 
         <dt id="Params">
@@ -144,7 +136,7 @@
 
 </dt>
 <dd>
-  Params helper class 
+  Params helper class
 </dd>
 
         <dt id="Product">
@@ -152,7 +144,7 @@
 
 </dt>
 <dd>
-  Product helper class 
+  Product helper class
 </dd>
 
         <dt id="Search">
@@ -160,7 +152,7 @@
 
 </dt>
 <dd>
-  Search helper class 
+  Search helper class
 </dd>
 
         <dt id="SiteCentric">
@@ -168,7 +160,7 @@
 
 </dt>
 <dd>
-  SiteCentric helper class 
+  SiteCentric helper class
 </dd>
 
       </dl>
@@ -185,7 +177,7 @@
 </dt>
 <dd>
     Enum extension to get property keys.
-used during serialization of payload 
+used during serialization of payload
 </dd>
 
 
@@ -200,11 +192,11 @@ used during serialization of payload
 
       <dl>
         <dt id="EAPropertyKey">
-  <span class="name "><a href="../eanalytics/EAPropertyKey-class.html">EAPropertyKey</a></span> 
+  <span class="name "><a href="../eanalytics/EAPropertyKey.html">EAPropertyKey</a></span> 
 
 </dt>
 <dd>
-  All valid Eulerian payload properties 
+  All valid Eulerian payload properties
 </dd>
 
       </dl>
@@ -214,36 +206,30 @@ used during serialization of payload
 
   </div> <!-- /.main-content -->
 
-  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-    <h5>eanalytics library</h5>
-    <ol>
-  <li class="section-title"><a href="../eanalytics/eanalytics-library.html#classes">Classes</a></li>
-  <li><a href="../eanalytics/Action-class.html">Action</a></li>
-  <li><a href="../eanalytics/EACart-class.html">EACart</a></li>
-  <li><a href="../eanalytics/EAEstimate-class.html">EAEstimate</a></li>
-  <li><a href="../eanalytics/EAOrder-class.html">EAOrder</a></li>
-  <li><a href="../eanalytics/EAProducts-class.html">EAProducts</a></li>
-  <li><a href="../eanalytics/EAProperty-class.html">EAProperty</a></li>
-  <li><a href="../eanalytics/EASearch-class.html">EASearch</a></li>
-  <li><a href="../eanalytics/Eulerian-class.html">Eulerian</a></li>
-  <li><a href="../eanalytics/Params-class.html">Params</a></li>
-  <li><a href="../eanalytics/Product-class.html">Product</a></li>
-  <li><a href="../eanalytics/Search-class.html">Search</a></li>
-  <li><a href="../eanalytics/SiteCentric-class.html">SiteCentric</a></li>
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
 
-  <li class="section-title"><a href="../eanalytics/eanalytics-library.html#extension">Extensions</a></li>
-  <li><a href="../eanalytics/EAPropertyKeyExtension.html">EAPropertyKeyExtension</a></li>
-
-
-
-
-
-  <li class="section-title"><a href="../eanalytics/eanalytics-library.html#enums">Enums</a></li>
-  <li><a href="../eanalytics/EAPropertyKey-class.html">EAPropertyKey</a></li>
-
-
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">eanalytics</a></li>
+    <li class="self-crumb">eanalytics library</li>
 </ol>
 
+
+    <h5><span class="package-name">eanalytics</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="../eanalytics/eanalytics-library.html">eanalytics</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <h5>eanalytics library</h5>
   </div><!--/sidebar-offcanvas-right-->
 
 </main>
@@ -251,15 +237,16 @@ used during serialization of payload
 <footer>
   <span class="no-break">
     eanalytics
-      0.0.1
+      0.0.6
   </span>
 
   
 </footer>
 
 
-<script src="../static-assets/highlight.pack.js"></script>
-<script src="../static-assets/script.js"></script>
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 
