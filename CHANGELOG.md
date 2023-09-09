@@ -1,3 +1,11 @@
+## [0.1.0]
+
+- Bump all dependencies to latest major versions 🏗️
+- Use android_id package to resolve device UUID for android platform 🤖
+- Allow disabling logger via EAnalytics.Eulerian.init through enableLogger parameter 👨🏼‍💻
+- Rebuild example app for ios/android/web 📱
+- Regenerate documentation 📚
+
 ## [0.0.6]
 
 - Fix advertising identifier key for IOS/ANDROID
