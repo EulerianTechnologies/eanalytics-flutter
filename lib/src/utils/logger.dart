@@ -1,21 +1,19 @@
 import 'package:logger/logger.dart';
 
 class EALogger {
-  static final logger = Logger(
-      printer: PrettyPrinter(
-          colors: true,
-          printEmojis: true,
-          printTime: true,
-          lineLength: 80,
-          errorMethodCount: 0,
-          methodCount: 0));
   static final EALogger _instance = EALogger._internal();
   static final prefix = '[EAnalytics] - ';
+  static final logger =
+      Logger(printer: PrettyPrinter(printEmojis: true, printTime: true, errorMethodCount: 0, methodCount: 0));
 
   EALogger._internal();
 
   factory EALogger() {
     return _instance;
+  }
+
+  static void setLevel(Level level) {
+    Logger.level = level;
   }
 
   void info(String message) {
@@ -26,8 +24,8 @@ class EALogger {
     EALogger.logger.d('${EALogger.prefix}$message');
   }
 
-  void verbose(String message) {
-    EALogger.logger.v('${EALogger.prefix}$message');
+  void trace(String message) {
+    EALogger.logger.t('${EALogger.prefix}$message');
   }
 
   void error(String message) {

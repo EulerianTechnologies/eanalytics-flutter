@@ -3,6 +3,7 @@ import 'package:eanalytics/src/utils/post.dart';
 import 'package:eanalytics/src/utils/storage.dart';
 import 'package:eanalytics/src/utils/systemInfo.dart';
 import 'package:flutter/widgets.dart';
+import 'package:logger/logger.dart';
 
 import 'models/EAGlobalParams.dart';
 import 'models/EAProperty.dart';
@@ -40,18 +41,15 @@ class Eulerian {
   /// ```dart
   ///   await Eulerian.init('test.domain.dev', requestTrackingAuthorization: true)
   /// ```
-  static Future<void> init(String domain,
-      {bool requestTrackingAuthorization = false}) async {
+  static Future<void> init(String domain, {bool requestTrackingAuthorization = false, bool enableLogger = true}) async {
     try {
-      assert(!domain.contains('.eulerian.com'),
-          'Domain cannot contain ".eulerian.com"');
-      assert(
-          Uri.parse('https://$domain').isAbsolute, 'Domain is not well formed');
+      EALogger.setLevel(enableLogger ? Level.all : Level.off);
+
+      assert(!domain.contains('.eulerian.com'), 'Domain cannot contain ".eulerian.com"');
+      assert(Uri.parse('https://$domain').isAbsolute, 'Domain is not well formed');
 
       /* if called during initState, delay initialization */
-      if (requestTrackingAuthorization)
-        WidgetsBinding.instance!
-            .addPostFrameCallback((_) => getAdvertiserId(true));
+      if (requestTrackingAuthorization) WidgetsBinding.instance.addPostFrameCallback((_) => getAdvertiserId(true));
 
       await EAGlobalParams.init();
       Eulerian._instance.initialized = true;
@@ -77,21 +75,18 @@ class Eulerian {
   ///   ])
   /// ```
   static Future<void> track(List<EAProperty> properties) async {
-    assert(Eulerian._instance.initialized,
-        'Eulerian Tracker was not initialized. You must call Eulerian.Init()');
+    assert(Eulerian._instance.initialized, 'Eulerian Tracker was not initialized. You must call Eulerian.Init()');
     if (!Eulerian._instance.initialized) return;
 
     _logger.info('Tracking properties $properties');
 
-    Eulerian._instance._post(await Eulerian._instance
-        ._sync(properties.fold(<Map<String, dynamic>>[], (acc, prop) {
+    Eulerian._instance._post(await Eulerian._instance._sync(properties.fold(<Map<String, dynamic>>[], (acc, prop) {
       acc.add(prop.toJson());
       return acc;
     })));
   }
 
-  Future<List<Map<String, dynamic>>> _sync(
-      List<Map<String, dynamic>> body) async {
+  Future<List<Map<String, dynamic>>> _sync(List<Map<String, dynamic>> body) async {
     final synced = body.toList();
     synced.addAll(await getStoredProperties(logger: _logger));
 
