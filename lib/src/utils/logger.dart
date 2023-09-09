@@ -3,8 +3,12 @@ import 'package:logger/logger.dart';
 class EALogger {
   static final EALogger _instance = EALogger._internal();
   static final prefix = '[EAnalytics] - ';
-  static final logger =
-      Logger(printer: PrettyPrinter(printEmojis: true, printTime: true, errorMethodCount: 0, methodCount: 0));
+  static final logger = Logger(
+      printer: PrettyPrinter(
+          printEmojis: true,
+          printTime: true,
+          errorMethodCount: 0,
+          methodCount: 0));
 
   EALogger._internal();
 

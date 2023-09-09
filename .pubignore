@@ -29,7 +29,6 @@
 .pub/
 build/
 doc/
-example/
 test/
 
 # Android related
