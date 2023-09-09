@@ -1,6 +1,6 @@
 name: eanalytics
 description: Eulerian Technologies - EAnalytics Flutter SDK. This SDK provides functionnalities for our augmented analytics platform. Get a free account at https://eulerian.io/
-version: 0.1.0
+version: 1.0.0
 homepage: https://github.com/EulerianTechnologies/eanalytics-flutter
 
 environment:

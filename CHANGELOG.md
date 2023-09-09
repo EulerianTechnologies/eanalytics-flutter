@@ -1,3 +1,7 @@
+## [1.0.0]
+
+- Flutter v3 support
+
 ## [0.1.0]
 
 - Bump all dependencies to latest major versions 🏗️
