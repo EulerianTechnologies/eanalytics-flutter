@@ -16,8 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    EAnalytics.Eulerian.init('et.eulerian.net',
-        requestTrackingAuthorization: true);
+    EAnalytics.Eulerian.init('et.eulerian.net', requestTrackingAuthorization: true, enableLogger: true);
     super.initState();
   }
 
@@ -39,10 +38,8 @@ class _HomeState extends State<Home> {
               EAnalytics.Eulerian.track([
                 EAnalytics.EAProperty(path: '/home')
                   ..setEmail('johndoe@eulerian.dev')
-                  ..setProperty(EAnalytics.SiteCentric()
-                    ..addParam('prop', ['foo', 'baz']))
-                  ..setCFlag(
-                      EAnalytics.SiteCentric()..addParam('cflag_', ['foo']))
+                  ..setProperty(EAnalytics.SiteCentric()..addParam('prop', ['foo', 'baz']))
+                  ..setCFlag(EAnalytics.SiteCentric()..addParam('cflag_', ['foo']))
               ]);
             },
             child: Text('EAProperty'),
@@ -64,16 +61,13 @@ class _HomeState extends State<Home> {
             onPressed: () => EAnalytics.Eulerian.track([
               EAnalytics.EAProducts(path: '/add/products')
                 ..setLocation(latitude: 1.234543, longitude: 54.35322)
-                ..setAction(
-                    EAnalytics.Action(actionRef: 'test', actionIn: 'test_in'))
-                ..addProduct(EAnalytics.Product(
-                    ref: 'p1', name: 'Product 1', group: 'group_of_doom'))
+                ..setAction(EAnalytics.Action(actionRef: 'test', actionIn: 'test_in'))
+                ..addProduct(EAnalytics.Product(ref: 'p1', name: 'Product 1', group: 'group_of_doom'))
                 ..addProduct(EAnalytics.Product(
                     ref: 'p2',
                     name: 'Product 2',
                     group: 'group_of_doom',
-                    parameters: EAnalytics.Params()
-                      ..addParam('foo', {'baz': 'bar'})))
+                    parameters: EAnalytics.Params()..addParam('foo', {'baz': 'bar'})))
             ]),
             child: Text('Multiple products'),
           )
