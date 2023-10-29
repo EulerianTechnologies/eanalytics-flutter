@@ -12,7 +12,8 @@ class EAPropertyKey {
   static const EAPropertyKey APPNAME = EAPropertyKey._("ea-appname");
   static const EAPropertyKey EPOCH = EAPropertyKey._("ereplay-time");
   static const EAPropertyKey APP_VERSION = EAPropertyKey._("ea-appversion");
-  static const EAPropertyKey SDK_VERSION = EAPropertyKey._("ea-flutter-sdk-version");
+  static const EAPropertyKey SDK_VERSION =
+      EAPropertyKey._("ea-flutter-sdk-version");
   static const EAPropertyKey PAGE_LATITUDE = EAPropertyKey._("ea-lat");
   static const EAPropertyKey PAGE_LONGITUDE = EAPropertyKey._("ea-lon");
   static const EAPropertyKey PAGE_PATH = EAPropertyKey._("path");
@@ -46,7 +47,8 @@ class EAPropertyKey {
   static const EAPropertyKey ESTIMATE = EAPropertyKey._("estimate");
   static const EAPropertyKey ESTIMATE_CURRENCY = EAPropertyKey._("currency");
   static const EAPropertyKey ESTIMATE_TYPE = EAPropertyKey._("type");
-  static const EAPropertyKey ORDER_ESTIMATE_REF = EAPropertyKey._("estimateref");
+  static const EAPropertyKey ORDER_ESTIMATE_REF =
+      EAPropertyKey._("estimateref");
   static const EAPropertyKey ORDER_PAYMENT = EAPropertyKey._("payment");
   static const EAPropertyKey IOS_IDFV = EAPropertyKey._("ea-ios-idfv");
   static const EAPropertyKey IOS_ADID = EAPropertyKey._("ea-ios-idfa");
