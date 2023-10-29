@@ -1,147 +1,66 @@
 library eanalytics;
 
-/// All valid Eulerian payload properties
-enum EAPropertyKey {
-  EOS,
-  EHW,
-  EUIDL,
-  URL,
-  APPNAME,
-  EPOCH,
-  APP_VERSION,
-  SDK_VERSION,
-  PAGE_LATITUDE,
-  PAGE_LONGITUDE,
-  PAGE_PATH,
-  PAGE_EMAIL,
-  PAGE_UID,
-  PAGE_PROFILE,
-  PAGE_GROUP,
-  PAGE_ACTION,
-  PAGE_PROPERTY,
-  PAGE_NEW_CUSTOMER,
-  PAGE_CFLAG,
-  PRODUCTS,
-  PRODUCT_REF,
-  PRODUCT_NAME,
-  PRODUCT_PARAMS,
-  PRODUCT_GROUP,
-  PRODUCT_QUANTITY,
-  PRODUCT_AMOUNT,
-  CART_SCART,
-  CART_CUMUL,
-  ACTION_REF,
-  ACTION_IN,
-  ACTION_OUT,
-  SEARCH_NAME,
-  SEARCH_RESULTS,
-  SEARCH_PARAMS,
-  SEARCH_ENGINE,
-  ESTIMATE,
-  ESTIMATE_REF,
-  ESTIMATE_AMOUNT,
-  ESTIMATE_CURRENCY,
-  ESTIMATE_TYPE,
-  ESTIMATE_PRODUCTS,
-  ORDER_ESTIMATE_REF,
-  ORDER_PAYMENT,
-  IOS_IDFV,
-  IOS_ADID,
-  ANDROID_ADID
+class EAPropertyKey {
+  final String value;
+
+  const EAPropertyKey._(this.value);
+
+  static const EAPropertyKey EOS = EAPropertyKey._("eos");
+  static const EAPropertyKey EHW = EAPropertyKey._("ehw");
+  static const EAPropertyKey EUIDL = EAPropertyKey._("euidl");
+  static const EAPropertyKey URL = EAPropertyKey._("url");
+  static const EAPropertyKey APPNAME = EAPropertyKey._("ea-appname");
+  static const EAPropertyKey EPOCH = EAPropertyKey._("ereplay-time");
+  static const EAPropertyKey APP_VERSION = EAPropertyKey._("ea-appversion");
+  static const EAPropertyKey SDK_VERSION = EAPropertyKey._("ea-flutter-sdk-version");
+  static const EAPropertyKey PAGE_LATITUDE = EAPropertyKey._("ea-lat");
+  static const EAPropertyKey PAGE_LONGITUDE = EAPropertyKey._("ea-lon");
+  static const EAPropertyKey PAGE_PATH = EAPropertyKey._("path");
+  static const EAPropertyKey PAGE_EMAIL = EAPropertyKey._("email");
+  static const EAPropertyKey PAGE_UID = EAPropertyKey._("uid");
+  static const EAPropertyKey PAGE_PROFILE = EAPropertyKey._("profile");
+  static const EAPropertyKey PAGE_GROUP = EAPropertyKey._("pagegroup");
+  static const EAPropertyKey PAGE_ACTION = EAPropertyKey._("action");
+  static const EAPropertyKey PAGE_PROPERTY = EAPropertyKey._("property");
+  static const EAPropertyKey PAGE_NEW_CUSTOMER = EAPropertyKey._("newcustomer");
+  static const EAPropertyKey PAGE_CFLAG = EAPropertyKey._("cflag");
+  static const EAPropertyKey PRODUCTS = EAPropertyKey._("products");
+  static const EAPropertyKey ESTIMATE_PRODUCTS = EAPropertyKey._("products");
+  static const EAPropertyKey PRODUCT_REF = EAPropertyKey._("ref");
+  static const EAPropertyKey ACTION_REF = EAPropertyKey._("ref");
+  static const EAPropertyKey ESTIMATE_REF = EAPropertyKey._("ref");
+  static const EAPropertyKey PRODUCT_NAME = EAPropertyKey._("search");
+  static const EAPropertyKey SEARCH_NAME = EAPropertyKey._("search");
+  static const EAPropertyKey PRODUCT_PARAMS = EAPropertyKey._("params");
+  static const EAPropertyKey SEARCH_PARAMS = EAPropertyKey._("params");
+  static const EAPropertyKey PRODUCT_GROUP = EAPropertyKey._("group");
+  static const EAPropertyKey CART_SCART = EAPropertyKey._("scart");
+  static const EAPropertyKey CART_CUMUL = EAPropertyKey._("scartcumul");
+  static const EAPropertyKey PRODUCT_AMOUNT = EAPropertyKey._("amount");
+  static const EAPropertyKey ESTIMATE_AMOUNT = EAPropertyKey._("amount");
+  static const EAPropertyKey PRODUCT_QUANTITY = EAPropertyKey._("quantity");
+  static const EAPropertyKey ACTION_IN = EAPropertyKey._("in");
+  static const EAPropertyKey ACTION_OUT = EAPropertyKey._("out");
+  static const EAPropertyKey SEARCH_RESULTS = EAPropertyKey._("results");
+  static const EAPropertyKey SEARCH_ENGINE = EAPropertyKey._("isearchengine");
+  static const EAPropertyKey ESTIMATE = EAPropertyKey._("estimate");
+  static const EAPropertyKey ESTIMATE_CURRENCY = EAPropertyKey._("currency");
+  static const EAPropertyKey ESTIMATE_TYPE = EAPropertyKey._("type");
+  static const EAPropertyKey ORDER_ESTIMATE_REF = EAPropertyKey._("estimateref");
+  static const EAPropertyKey ORDER_PAYMENT = EAPropertyKey._("payment");
+  static const EAPropertyKey IOS_IDFV = EAPropertyKey._("ea-ios-idfv");
+  static const EAPropertyKey IOS_ADID = EAPropertyKey._("ea-ios-idfa");
+  static const EAPropertyKey ANDROID_ADID = EAPropertyKey._("ea-android-adid");
+
+  // Define a custom property
+  static EAPropertyKey custom(String customValue) {
+    return EAPropertyKey._(customValue);
+  }
 }
 
-/// Enum extension to get property keys.
-/// used during serialization of payload
 extension EAPropertyKeyExtension on EAPropertyKey {
-  /// property name getter
+  // Property name getter
   String get name {
-    switch (this) {
-      case EAPropertyKey.EOS:
-        return "eos";
-      case EAPropertyKey.EHW:
-        return "ehw";
-      case EAPropertyKey.EUIDL:
-        return "euidl";
-      case EAPropertyKey.URL:
-        return "url";
-      case EAPropertyKey.APPNAME:
-        return "ea-appname";
-      case EAPropertyKey.EPOCH:
-        return "ereplay-time";
-      case EAPropertyKey.APP_VERSION:
-        return "ea-appversion";
-      case EAPropertyKey.SDK_VERSION:
-        return "ea-flutter-sdk-version";
-      case EAPropertyKey.PAGE_LATITUDE:
-        return "ea-lat";
-      case EAPropertyKey.PAGE_LONGITUDE:
-        return "ea-lon";
-      case EAPropertyKey.PAGE_PATH:
-        return "path";
-      case EAPropertyKey.PAGE_EMAIL:
-        return "email";
-      case EAPropertyKey.PAGE_UID:
-        return "uid";
-      case EAPropertyKey.PAGE_PROFILE:
-        return "profile";
-      case EAPropertyKey.PAGE_GROUP:
-        return "pagegroup";
-      case EAPropertyKey.PAGE_ACTION:
-        return "action";
-      case EAPropertyKey.PAGE_PROPERTY:
-        return "property";
-      case EAPropertyKey.PAGE_NEW_CUSTOMER:
-        return "newcustomer";
-      case EAPropertyKey.PAGE_CFLAG:
-        return "cflag";
-      case EAPropertyKey.PRODUCTS:
-      case EAPropertyKey.ESTIMATE_PRODUCTS:
-        return "products";
-      case EAPropertyKey.PRODUCT_REF:
-      case EAPropertyKey.ACTION_REF:
-      case EAPropertyKey.ESTIMATE_REF:
-        return "ref";
-      case EAPropertyKey.PRODUCT_NAME:
-      case EAPropertyKey.SEARCH_NAME:
-        return "name";
-      case EAPropertyKey.PRODUCT_PARAMS:
-      case EAPropertyKey.SEARCH_PARAMS:
-        return "params";
-      case EAPropertyKey.PRODUCT_GROUP:
-        return "group";
-      case EAPropertyKey.CART_SCART:
-        return "scart";
-      case EAPropertyKey.CART_CUMUL:
-        return "scartcumul";
-      case EAPropertyKey.PRODUCT_AMOUNT:
-      case EAPropertyKey.ESTIMATE_AMOUNT:
-        return "amount";
-      case EAPropertyKey.PRODUCT_QUANTITY:
-        return "quantity";
-      case EAPropertyKey.ACTION_IN:
-        return "in";
-      case EAPropertyKey.ACTION_OUT:
-        return "out";
-      case EAPropertyKey.SEARCH_RESULTS:
-        return "results";
-      case EAPropertyKey.SEARCH_ENGINE:
-        return "isearchengine";
-      case EAPropertyKey.ESTIMATE:
-        return "estimate";
-      case EAPropertyKey.ESTIMATE_CURRENCY:
-        return "currency";
-      case EAPropertyKey.ESTIMATE_TYPE:
-        return "type";
-      case EAPropertyKey.ORDER_ESTIMATE_REF:
-        return "estimateref";
-      case EAPropertyKey.ORDER_PAYMENT:
-        return "payment";
-      case EAPropertyKey.IOS_IDFV:
-        return "ea-ios-idfv";
-      case EAPropertyKey.IOS_ADID:
-        return "ea-ios-idfa";
-      case EAPropertyKey.ANDROID_ADID:
-        return "ea-android-adid";
-    }
+    return value;
   }
 }
