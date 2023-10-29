@@ -1,3 +1,7 @@
+## [1.1.0]
+
+- Add support for adding custom params on `EAProperty`
+
 ## [1.0.0]
 
 - Flutter v3 support
