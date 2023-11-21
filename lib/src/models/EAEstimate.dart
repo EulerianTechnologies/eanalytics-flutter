@@ -27,6 +27,11 @@ class EAEstimate extends EAProperty {
     payload[EAPropertyKey.ESTIMATE_CURRENCY] = currency;
   }
 
+  /// Sets the *payment* property
+  void setPayment(String payment) {
+    payload[EAPropertyKey.ESTIMATE_PAYMENT] = payment;
+  }
+
   /// Adds a product to the EAEstimate instance
   void addProduct({required Product product, double? amount, int? quantity}) {
     if (product.payload[EAPropertyKey.PRODUCT_AMOUNT] == null && amount != null)

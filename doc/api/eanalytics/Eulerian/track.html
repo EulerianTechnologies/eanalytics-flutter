@@ -87,12 +87,14 @@ If the POST request fails, it will be stored in local storage for future retry.<
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">static Future&lt;void&gt; track(List&lt;EAProperty&gt; properties) async {
-  assert(Eulerian._instance.initialized, &#39;Eulerian Tracker was not initialized. You must call Eulerian.Init()&#39;);
+  assert(Eulerian._instance.initialized,
+      &#39;Eulerian Tracker was not initialized. You must call Eulerian.Init()&#39;);
   if (!Eulerian._instance.initialized) return;
 
   _logger.info(&#39;Tracking properties $properties&#39;);
 
-  Eulerian._instance._post(await Eulerian._instance._sync(properties.fold(&lt;Map&lt;String, dynamic&gt;&gt;[], (acc, prop) {
+  Eulerian._instance._post(await Eulerian._instance
+      ._sync(properties.fold(&lt;Map&lt;String, dynamic&gt;&gt;[], (acc, prop) {
     acc.add(prop.toJson());
     return acc;
   })));
@@ -129,7 +131,7 @@ If the POST request fails, it will be stored in local storage for future retry.<
 <footer>
   <span class="no-break">
     eanalytics
-      0.0.6
+      1.1.0
   </span>
 
   

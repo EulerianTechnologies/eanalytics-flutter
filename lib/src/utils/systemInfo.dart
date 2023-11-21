@@ -69,7 +69,7 @@ Map<SystemInfoKey, String?> parseIosInfo(IosDeviceInfo info) {
 Map<SystemInfoKey, String?> parseWebInfo(WebBrowserInfo info) {
   return <SystemInfoKey, String?>{
     SystemInfoKey.OS: '${info.platform}',
-    SystemInfoKey.MODEL: '${describeEnum(info.browserName)}'
+    SystemInfoKey.MODEL: '${info.browserName.name}'
   };
 }
 

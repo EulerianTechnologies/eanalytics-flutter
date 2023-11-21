@@ -32,6 +32,11 @@ class EAProperty with Serializable<EAPropertyKey, dynamic> {
     payload[EAPropertyKey.PAGE_NEW_CUSTOMER] = isNew ? 1 : 0;
   }
 
+  /// Sets the *notag* property
+  void setNoTag(bool isNoTag) {
+    payload[EAPropertyKey.NOTAG] = isNoTag ? 1 : 0;
+  }
+
   /// Sets the *email* property
   void setEmail(String email) {
     payload[EAPropertyKey.PAGE_EMAIL] = email;

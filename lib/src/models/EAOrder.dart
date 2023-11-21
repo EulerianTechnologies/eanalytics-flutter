@@ -11,11 +11,6 @@ class EAOrder extends EAEstimate {
     setEstimateRef(estimateRef);
   }
 
-  /// Sets the *payment* property
-  void setPayment(String payment) {
-    payload[EAPropertyKey.ORDER_PAYMENT] = payment;
-  }
-
   /// Sets the *estimateref* property
   void setEstimateRef(String estimateRef) {
     payload[EAPropertyKey.ORDER_ESTIMATE_REF] = estimateRef;

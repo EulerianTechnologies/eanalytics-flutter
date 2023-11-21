@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
               EAnalytics.EAProducts(path: '/add/products')
                 ..setLocation(latitude: 1.234543, longitude: 54.35322)
                 ..setAction(
-                    EAnalytics.Action(actionRef: 'test', actionIn: 'test_in'))
+                    EAnalytics.Action(name: 'test', mode: 'in'))
                 ..addProduct(EAnalytics.Product(
                     ref: 'p1', name: 'Product 1', group: 'group_of_doom'))
                 ..addProduct(EAnalytics.Product(

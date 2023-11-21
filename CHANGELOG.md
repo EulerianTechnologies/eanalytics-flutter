@@ -1,3 +1,11 @@
+## [1.1.0]
+
+- Multiple action integration with name format
+- Added action label and page label
+- Main property added setNoTag for standalone action calls
+- Order payment corrections
+- Updated dependencies
+
 ## [1.0.0]
 
 - Flutter v3 support

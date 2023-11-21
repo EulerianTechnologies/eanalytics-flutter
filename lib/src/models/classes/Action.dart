@@ -7,29 +7,37 @@ import 'package:eanalytics/src/utils/serializable.dart';
 class Action with Serializable<EAPropertyKey, dynamic> {
   /// Constructor sets the *ref*, *in* and *out*? properties
   Action(
-      {required String actionRef,
-      required String actionIn,
-      List<String>? actionOut}) {
-    assert(actionRef.isNotEmpty && actionIn.isNotEmpty,
-        "Action must have at least 'in' or 'ref' parameter set to be valid.");
+      {required String name,
+      String ?mode,
+      String ?label,
+      String ?ref }) {
+    assert(name.isNotEmpty,
+        "Action 'name' must be valid.");
 
-    setRef(actionRef);
-    setIn(actionIn);
-    if (actionOut != null) setOut(actionOut);
+    setName(name);
+
+    if (mode != null) setMode(mode);
+    if (label != null) setLabel(label);
+    if (ref != null) setRef(ref);
+  }
+
+  /// Sets the *name* property
+  void setName(String name) {
+    payload[EAPropertyKey.ACTION_NAME] = name;
+  }
+
+  /// Sets the *mode* property
+  void setMode(String actionMode) {
+    payload[EAPropertyKey.ACTION_MODE] = actionMode;
+  }
+
+  /// Sets the *out* property
+  void setLabel(String label) {
+    payload[EAPropertyKey.ACTION_LABEL] = label;
   }
 
   /// Sets the *ref* property
   void setRef(String actionRef) {
     payload[EAPropertyKey.ACTION_REF] = actionRef;
-  }
-
-  /// Sets the *in* property
-  void setIn(String actionIn) {
-    payload[EAPropertyKey.ACTION_IN] = actionIn;
-  }
-
-  /// Sets the *out* property
-  void setOut(List<String> actionOut) {
-    payload[EAPropertyKey.ACTION_OUT] = actionOut;
   }
 }

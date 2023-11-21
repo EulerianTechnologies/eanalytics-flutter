@@ -87,15 +87,21 @@ passing the requestTrackingAuhtorization flag to the init method.</p>
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">static Future&lt;void&gt; init(String domain, {bool requestTrackingAuthorization = false, bool enableLogger = true}) async {
+  <pre class="language-dart"><code class="language-dart">static Future&lt;void&gt; init(String domain,
+    {bool requestTrackingAuthorization = false,
+    bool enableLogger = true}) async {
   try {
     EALogger.setLevel(enableLogger ? Level.all : Level.off);
 
-    assert(!domain.contains(&#39;.eulerian.com&#39;), &#39;Domain cannot contain &quot;.eulerian.com&quot;&#39;);
-    assert(Uri.parse(&#39;https:&#47;&#47;$domain&#39;).isAbsolute, &#39;Domain is not well formed&#39;);
+    assert(!domain.contains(&#39;.eulerian.com&#39;),
+        &#39;Domain cannot contain &quot;.eulerian.com&quot;&#39;);
+    assert(
+        Uri.parse(&#39;https:&#47;&#47;$domain&#39;).isAbsolute, &#39;Domain is not well formed&#39;);
 
     &#47;* if called during initState, delay initialization *&#47;
-    if (requestTrackingAuthorization) WidgetsBinding.instance.addPostFrameCallback((_) =&gt; getAdvertiserId(true));
+    if (requestTrackingAuthorization)
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) =&gt; getAdvertiserId(true));
 
     await EAGlobalParams.init();
     Eulerian._instance.initialized = true;
@@ -141,7 +147,7 @@ passing the requestTrackingAuhtorization flag to the init method.</p>
 <footer>
   <span class="no-break">
     eanalytics
-      0.0.6
+      1.1.0
   </span>
 
   

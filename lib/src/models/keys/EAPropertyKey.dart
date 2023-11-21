@@ -8,6 +8,7 @@ enum EAPropertyKey {
   URL,
   APPNAME,
   EPOCH,
+  NOTAG,
   APP_VERSION,
   SDK_VERSION,
   PAGE_LATITUDE,
@@ -17,6 +18,7 @@ enum EAPropertyKey {
   PAGE_UID,
   PAGE_PROFILE,
   PAGE_GROUP,
+  PAGE_LABEL,
   PAGE_ACTION,
   PAGE_PROPERTY,
   PAGE_NEW_CUSTOMER,
@@ -30,9 +32,11 @@ enum EAPropertyKey {
   PRODUCT_AMOUNT,
   CART_SCART,
   CART_CUMUL,
+  ACTIONS,
   ACTION_REF,
-  ACTION_IN,
-  ACTION_OUT,
+  ACTION_MODE,
+  ACTION_NAME,
+  ACTION_LABEL,
   SEARCH_NAME,
   SEARCH_RESULTS,
   SEARCH_PARAMS,
@@ -43,8 +47,14 @@ enum EAPropertyKey {
   ESTIMATE_CURRENCY,
   ESTIMATE_TYPE,
   ESTIMATE_PRODUCTS,
-  ORDER_ESTIMATE_REF,
+  ESTIMATE_PAYMENT,
+  ORDER_REF,
+  ORDER_AMOUNT,
+  ORDER_CURRENCY,
+  ORDER_TYPE,
+  ORDER_PRODUCTS,
   ORDER_PAYMENT,
+  ORDER_ESTIMATE_REF,
   IOS_IDFV,
   IOS_ADID,
   ANDROID_ADID
@@ -68,6 +78,8 @@ extension EAPropertyKeyExtension on EAPropertyKey {
         return "ea-appname";
       case EAPropertyKey.EPOCH:
         return "ereplay-time";
+      case EAPropertyKey.NOTAG:
+        return "ereplay-notag";
       case EAPropertyKey.APP_VERSION:
         return "ea-appversion";
       case EAPropertyKey.SDK_VERSION:
@@ -86,6 +98,8 @@ extension EAPropertyKeyExtension on EAPropertyKey {
         return "profile";
       case EAPropertyKey.PAGE_GROUP:
         return "pagegroup";
+      case EAPropertyKey.PAGE_LABEL:
+	return "pagelabel";
       case EAPropertyKey.PAGE_ACTION:
         return "action";
       case EAPropertyKey.PAGE_PROPERTY:
@@ -94,16 +108,27 @@ extension EAPropertyKeyExtension on EAPropertyKey {
         return "newcustomer";
       case EAPropertyKey.PAGE_CFLAG:
         return "cflag";
+      case EAPropertyKey.ACTIONS:
+	return "actions";
       case EAPropertyKey.PRODUCTS:
       case EAPropertyKey.ESTIMATE_PRODUCTS:
+      case EAPropertyKey.ORDER_PRODUCTS:
         return "products";
       case EAPropertyKey.PRODUCT_REF:
       case EAPropertyKey.ACTION_REF:
       case EAPropertyKey.ESTIMATE_REF:
+      case EAPropertyKey.ORDER_REF:
         return "ref";
+      case EAPropertyKey.ORDER_ESTIMATE_REF:
+	return "estimateref";
+      case EAPropertyKey.ACTION_MODE:
+	return "mode";
       case EAPropertyKey.PRODUCT_NAME:
+      case EAPropertyKey.ACTION_NAME:
       case EAPropertyKey.SEARCH_NAME:
         return "name";
+      case EAPropertyKey.ACTION_LABEL:
+	return "label";
       case EAPropertyKey.PRODUCT_PARAMS:
       case EAPropertyKey.SEARCH_PARAMS:
         return "params";
@@ -115,13 +140,10 @@ extension EAPropertyKeyExtension on EAPropertyKey {
         return "scartcumul";
       case EAPropertyKey.PRODUCT_AMOUNT:
       case EAPropertyKey.ESTIMATE_AMOUNT:
+      case EAPropertyKey.ORDER_AMOUNT:
         return "amount";
       case EAPropertyKey.PRODUCT_QUANTITY:
         return "quantity";
-      case EAPropertyKey.ACTION_IN:
-        return "in";
-      case EAPropertyKey.ACTION_OUT:
-        return "out";
       case EAPropertyKey.SEARCH_RESULTS:
         return "results";
       case EAPropertyKey.SEARCH_ENGINE:
@@ -129,11 +151,12 @@ extension EAPropertyKeyExtension on EAPropertyKey {
       case EAPropertyKey.ESTIMATE:
         return "estimate";
       case EAPropertyKey.ESTIMATE_CURRENCY:
+      case EAPropertyKey.ORDER_CURRENCY:
         return "currency";
       case EAPropertyKey.ESTIMATE_TYPE:
+      case EAPropertyKey.ORDER_TYPE:
         return "type";
-      case EAPropertyKey.ORDER_ESTIMATE_REF:
-        return "estimateref";
+      case EAPropertyKey.ESTIMATE_PAYMENT:
       case EAPropertyKey.ORDER_PAYMENT:
         return "payment";
       case EAPropertyKey.IOS_IDFV:
