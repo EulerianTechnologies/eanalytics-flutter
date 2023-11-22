@@ -6,6 +6,7 @@ export 'src/models/keys/EAPropertyKey.dart';
 
 export 'src/models/EAProperty.dart';
 export 'src/models/EAProducts.dart';
+export 'src/models/EAActions.dart';
 export 'src/models/EACart.dart';
 export 'src/models/EAEstimate.dart';
 export 'src/models/EASearch.dart';

@@ -35,16 +35,16 @@ class _HomeState extends State<Home> {
         crossAxisCount: 2,
         children: [
           OutlinedButton(
-            onPressed: () {
-              EAnalytics.Eulerian.track([
+            onPressed: () => EAnalytics.Eulerian.track([
                 EAnalytics.EAProperty(path: '/home')
+		  ..setLabel('lbl1,lbl2,,lbl4')
+		  ..setCustomParam('cpvKey', 'cpvTest')
                   ..setEmail('johndoe@eulerian.dev')
                   ..setProperty(EAnalytics.SiteCentric()
                     ..addParam('prop', ['foo', 'baz']))
                   ..setCFlag(
                       EAnalytics.SiteCentric()..addParam('cflag_', ['foo']))
-              ]);
-            },
+	    ]),
             child: Text('EAProperty'),
           ),
           OutlinedButton(
@@ -76,7 +76,26 @@ class _HomeState extends State<Home> {
                       ..addParam('foo', {'baz': 'bar'})))
             ]),
             child: Text('Multiple products'),
-          )
+          ),
+          OutlinedButton(
+            onPressed: () => EAnalytics.Eulerian.track([
+                EAnalytics.EAActions(path: '')
+		  ..setStandalone()
+		  ..addAction(
+			  EAnalytics.Action(
+				  name: 'button1', mode: 'in'))
+		  ..addAction(
+			  EAnalytics.Action(
+				  name: 'lbldisplay', mode: null, label: 'label1,,label3' )
+			  ..setParams(
+				  EAnalytics.Params()
+				  ..addParam('input', 'test')
+				  ..addParam('select', 'val1')
+				  )
+		 )
+	    ]),
+            child: Text('StandAloneAction'),
+          ),
         ],
       ),
     );

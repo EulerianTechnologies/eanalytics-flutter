@@ -33,13 +33,18 @@ class EAProperty with Serializable<EAPropertyKey, dynamic> {
   }
 
   /// Sets the *notag* property
-  void setNoTag(bool isNoTag) {
-    payload[EAPropertyKey.NOTAG] = isNoTag ? 1 : 0;
+  void setStandalone() {
+    payload[EAPropertyKey.NOTAG] = 1;
   }
 
   /// Sets the *email* property
   void setEmail(String email) {
     payload[EAPropertyKey.PAGE_EMAIL] = email;
+  }
+
+  /// Sets the *out* property
+  void setLabel(String label) {
+    payload[EAPropertyKey.PAGE_LABEL] = label;
   }
 
   /// Sets the *uid* property
@@ -70,5 +75,11 @@ class EAProperty with Serializable<EAPropertyKey, dynamic> {
   /// Sets the *cflag* property
   void setCFlag(SiteCentric cFlag) {
     payload[EAPropertyKey.PAGE_CFLAG] = cFlag;
+  }
+
+  // Set custom k/v
+  // key is not EAPropertyKey - serializable.dart (toJSON) as String
+  void setCustomParam(String k, String v) {
+    payload[ EAPropertyKey.custom(k) ] = v;
   }
 }

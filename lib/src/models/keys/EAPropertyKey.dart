@@ -1,170 +1,70 @@
 library eanalytics;
 
 /// All valid Eulerian payload properties
-enum EAPropertyKey {
-  EOS,
-  EHW,
-  EUIDL,
-  URL,
-  APPNAME,
-  EPOCH,
-  NOTAG,
-  APP_VERSION,
-  SDK_VERSION,
-  PAGE_LATITUDE,
-  PAGE_LONGITUDE,
-  PAGE_PATH,
-  PAGE_EMAIL,
-  PAGE_UID,
-  PAGE_PROFILE,
-  PAGE_GROUP,
-  PAGE_LABEL,
-  PAGE_ACTION,
-  PAGE_PROPERTY,
-  PAGE_NEW_CUSTOMER,
-  PAGE_CFLAG,
-  PRODUCTS,
-  PRODUCT_REF,
-  PRODUCT_NAME,
-  PRODUCT_PARAMS,
-  PRODUCT_GROUP,
-  PRODUCT_QUANTITY,
-  PRODUCT_AMOUNT,
-  CART_SCART,
-  CART_CUMUL,
-  ACTIONS,
-  ACTION_REF,
-  ACTION_MODE,
-  ACTION_NAME,
-  ACTION_LABEL,
-  SEARCH_NAME,
-  SEARCH_RESULTS,
-  SEARCH_PARAMS,
-  SEARCH_ENGINE,
-  ESTIMATE,
-  ESTIMATE_REF,
-  ESTIMATE_AMOUNT,
-  ESTIMATE_CURRENCY,
-  ESTIMATE_TYPE,
-  ESTIMATE_PRODUCTS,
-  ESTIMATE_PAYMENT,
-  ORDER_REF,
-  ORDER_AMOUNT,
-  ORDER_CURRENCY,
-  ORDER_TYPE,
-  ORDER_PRODUCTS,
-  ORDER_PAYMENT,
-  ORDER_ESTIMATE_REF,
-  IOS_IDFV,
-  IOS_ADID,
-  ANDROID_ADID
-}
+class EAPropertyKey {
+  final String name;
+  const EAPropertyKey._self( this.name );
 
-/// Enum extension to get property keys.
-/// used during serialization of payload
-extension EAPropertyKeyExtension on EAPropertyKey {
-  /// property name getter
-  String get name {
-    switch (this) {
-      case EAPropertyKey.EOS:
-        return "eos";
-      case EAPropertyKey.EHW:
-        return "ehw";
-      case EAPropertyKey.EUIDL:
-        return "euidl";
-      case EAPropertyKey.URL:
-        return "url";
-      case EAPropertyKey.APPNAME:
-        return "ea-appname";
-      case EAPropertyKey.EPOCH:
-        return "ereplay-time";
-      case EAPropertyKey.NOTAG:
-        return "ereplay-notag";
-      case EAPropertyKey.APP_VERSION:
-        return "ea-appversion";
-      case EAPropertyKey.SDK_VERSION:
-        return "ea-flutter-sdk-version";
-      case EAPropertyKey.PAGE_LATITUDE:
-        return "ea-lat";
-      case EAPropertyKey.PAGE_LONGITUDE:
-        return "ea-lon";
-      case EAPropertyKey.PAGE_PATH:
-        return "path";
-      case EAPropertyKey.PAGE_EMAIL:
-        return "email";
-      case EAPropertyKey.PAGE_UID:
-        return "uid";
-      case EAPropertyKey.PAGE_PROFILE:
-        return "profile";
-      case EAPropertyKey.PAGE_GROUP:
-        return "pagegroup";
-      case EAPropertyKey.PAGE_LABEL:
-	return "pagelabel";
-      case EAPropertyKey.PAGE_ACTION:
-        return "action";
-      case EAPropertyKey.PAGE_PROPERTY:
-        return "property";
-      case EAPropertyKey.PAGE_NEW_CUSTOMER:
-        return "newcustomer";
-      case EAPropertyKey.PAGE_CFLAG:
-        return "cflag";
-      case EAPropertyKey.ACTIONS:
-	return "actions";
-      case EAPropertyKey.PRODUCTS:
-      case EAPropertyKey.ESTIMATE_PRODUCTS:
-      case EAPropertyKey.ORDER_PRODUCTS:
-        return "products";
-      case EAPropertyKey.PRODUCT_REF:
-      case EAPropertyKey.ACTION_REF:
-      case EAPropertyKey.ESTIMATE_REF:
-      case EAPropertyKey.ORDER_REF:
-        return "ref";
-      case EAPropertyKey.ORDER_ESTIMATE_REF:
-	return "estimateref";
-      case EAPropertyKey.ACTION_MODE:
-	return "mode";
-      case EAPropertyKey.PRODUCT_NAME:
-      case EAPropertyKey.ACTION_NAME:
-      case EAPropertyKey.SEARCH_NAME:
-        return "name";
-      case EAPropertyKey.ACTION_LABEL:
-	return "label";
-      case EAPropertyKey.PRODUCT_PARAMS:
-      case EAPropertyKey.SEARCH_PARAMS:
-        return "params";
-      case EAPropertyKey.PRODUCT_GROUP:
-        return "group";
-      case EAPropertyKey.CART_SCART:
-        return "scart";
-      case EAPropertyKey.CART_CUMUL:
-        return "scartcumul";
-      case EAPropertyKey.PRODUCT_AMOUNT:
-      case EAPropertyKey.ESTIMATE_AMOUNT:
-      case EAPropertyKey.ORDER_AMOUNT:
-        return "amount";
-      case EAPropertyKey.PRODUCT_QUANTITY:
-        return "quantity";
-      case EAPropertyKey.SEARCH_RESULTS:
-        return "results";
-      case EAPropertyKey.SEARCH_ENGINE:
-        return "isearchengine";
-      case EAPropertyKey.ESTIMATE:
-        return "estimate";
-      case EAPropertyKey.ESTIMATE_CURRENCY:
-      case EAPropertyKey.ORDER_CURRENCY:
-        return "currency";
-      case EAPropertyKey.ESTIMATE_TYPE:
-      case EAPropertyKey.ORDER_TYPE:
-        return "type";
-      case EAPropertyKey.ESTIMATE_PAYMENT:
-      case EAPropertyKey.ORDER_PAYMENT:
-        return "payment";
-      case EAPropertyKey.IOS_IDFV:
-        return "ea-ios-idfv";
-      case EAPropertyKey.IOS_ADID:
-        return "ea-ios-idfa";
-      case EAPropertyKey.ANDROID_ADID:
-        return "ea-android-adid";
-    }
+  static const EAPropertyKey EOS = EAPropertyKey._self		( "eos" );
+  static const EAPropertyKey EHW = EAPropertyKey._self		( "ehw" );
+  static const EAPropertyKey EUIDL = EAPropertyKey._self	( "euidl" );
+  static const EAPropertyKey URL = EAPropertyKey._self		( "url" );
+  static const EAPropertyKey APPNAME = EAPropertyKey._self	( "ea-appname" );
+  static const EAPropertyKey EPOCH = EAPropertyKey._self	( "ereplay-time" );
+  static const EAPropertyKey NOTAG = EAPropertyKey._self	( "ereplay-notag" );
+  static const EAPropertyKey APP_VERSION = EAPropertyKey._self	( "ea-appversion" );
+  static const EAPropertyKey SDK_VERSION = EAPropertyKey._self	( "ea-flutter-sdk-version" );
+  static const EAPropertyKey PAGE_LATITUDE = EAPropertyKey._self( "ea-lat" );
+  static const EAPropertyKey PAGE_LONGITUDE = EAPropertyKey._self( "ea-lon" );
+  static const EAPropertyKey PAGE_PATH = EAPropertyKey._self	( "path" );
+  static const EAPropertyKey PAGE_EMAIL = EAPropertyKey._self	( "email" );
+  static const EAPropertyKey PAGE_UID = EAPropertyKey._self	( "uid" );
+  static const EAPropertyKey PAGE_PROFILE = EAPropertyKey._self	( "profile" );
+  static const EAPropertyKey PAGE_GROUP = EAPropertyKey._self	( "pagegroup" );
+  static const EAPropertyKey PAGE_LABEL = EAPropertyKey._self	( "pagelabel" );
+  static const EAPropertyKey PAGE_ACTION = EAPropertyKey._self	( "action" );
+  static const EAPropertyKey PAGE_PROPERTY = EAPropertyKey._self( "property" );
+  static const EAPropertyKey PAGE_NEW_CUSTOMER = EAPropertyKey._self( "newcustomer" );
+  static const EAPropertyKey PAGE_CFLAG = EAPropertyKey._self	( "cflag" );
+  static const EAPropertyKey PRODUCTS = EAPropertyKey._self	( "products" );
+  static const EAPropertyKey PRODUCT_REF = EAPropertyKey._self	( "ref" );
+  static const EAPropertyKey PRODUCT_NAME = EAPropertyKey._self	( "name" );
+  static const EAPropertyKey PRODUCT_PARAMS = EAPropertyKey._self( "params" );
+  static const EAPropertyKey PRODUCT_GROUP = EAPropertyKey._self( "group" );
+  static const EAPropertyKey PRODUCT_QUANTITY = EAPropertyKey._self( "quantity" );
+  static const EAPropertyKey PRODUCT_AMOUNT = EAPropertyKey._self( "amount" );
+  static const EAPropertyKey CART_SCART = EAPropertyKey._self	( "scart" );
+  static const EAPropertyKey CART_CUMUL = EAPropertyKey._self	( "scartcumul" );
+  static const EAPropertyKey ACTIONS = EAPropertyKey._self	( "actions" );
+  static const EAPropertyKey ACTION_REF = EAPropertyKey._self	( "ref" );
+  static const EAPropertyKey ACTION_MODE = EAPropertyKey._self	( "mode" );
+  static const EAPropertyKey ACTION_NAME = EAPropertyKey._self	( "name" );
+  static const EAPropertyKey ACTION_LABEL = EAPropertyKey._self	( "label" );
+  static const EAPropertyKey ACTION_PARAMS = EAPropertyKey._self ( "params" );
+  static const EAPropertyKey SEARCH_NAME = EAPropertyKey._self	( "name" );
+  static const EAPropertyKey SEARCH_RESULTS = EAPropertyKey._self( "results" );
+  static const EAPropertyKey SEARCH_PARAMS = EAPropertyKey._self( "params" );
+  static const EAPropertyKey SEARCH_ENGINE = EAPropertyKey._self( "isearchengine" );
+  static const EAPropertyKey ESTIMATE = EAPropertyKey._self	( "estimate" );
+  static const EAPropertyKey ESTIMATE_REF = EAPropertyKey._self	( "ref" );
+  static const EAPropertyKey ESTIMATE_AMOUNT = EAPropertyKey._self( "amount" );
+  static const EAPropertyKey ESTIMATE_CURRENCY = EAPropertyKey._self( "currency" );
+  static const EAPropertyKey ESTIMATE_TYPE = EAPropertyKey._self( "type" );
+  static const EAPropertyKey ESTIMATE_PRODUCTS = EAPropertyKey._self( "products" );
+  static const EAPropertyKey ESTIMATE_PAYMENT = EAPropertyKey._self( "payment" );
+  static const EAPropertyKey ORDER_REF = EAPropertyKey._self	( "ref" );
+  static const EAPropertyKey ORDER_AMOUNT = EAPropertyKey._self	( "amount" );
+  static const EAPropertyKey ORDER_CURRENCY = EAPropertyKey._self( "currency" );
+  static const EAPropertyKey ORDER_TYPE = EAPropertyKey._self	( "type" );
+  static const EAPropertyKey ORDER_PRODUCTS = EAPropertyKey._self( "products" );
+  static const EAPropertyKey ORDER_PAYMENT = EAPropertyKey._self( "payment" );
+  static const EAPropertyKey ORDER_ESTIMATE_REF = EAPropertyKey._self( "estimateref" );
+  static const EAPropertyKey IOS_IDFV = EAPropertyKey._self	( "ea-ios-idfv" );
+  static const EAPropertyKey IOS_ADID = EAPropertyKey._self	( "ea-ios-idfa" );
+  static const EAPropertyKey ANDROID_ADID = EAPropertyKey._self	( "ea-android-adid" );
+
+  static EAPropertyKey custom(String v) {
+    return EAPropertyKey._self( v );
   }
 }
+

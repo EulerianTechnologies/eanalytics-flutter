@@ -1,5 +1,6 @@
 library eanalytics;
 
+import 'package:eanalytics/src/models/classes/Params.dart';
 import 'package:eanalytics/src/models/keys/EAPropertyKey.dart';
 import 'package:eanalytics/src/utils/serializable.dart';
 
@@ -39,5 +40,10 @@ class Action with Serializable<EAPropertyKey, dynamic> {
   /// Sets the *ref* property
   void setRef(String actionRef) {
     payload[EAPropertyKey.ACTION_REF] = actionRef;
+  }
+
+  /// Sets the *params* property
+  void setParams(Params parameters) {
+    payload[EAPropertyKey.ACTION_PARAMS] = parameters;
   }
 }
