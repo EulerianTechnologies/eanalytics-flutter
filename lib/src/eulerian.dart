@@ -22,6 +22,8 @@ class Eulerian {
   /// Domain attached to the EAnalytics SDK instance
   String? domain;
 
+  String? euidl;
+
   PostHandler? _postHandler;
 
   /// Singleton factory constructor
@@ -57,7 +59,7 @@ class Eulerian {
         WidgetsBinding.instance
             .addPostFrameCallback((_) => getAdvertiserId(true));
 
-      await EAGlobalParams.init();
+      await EAGlobalParams.init( Eulerian._instance );
       Eulerian._instance.initialized = true;
       Eulerian._instance._postHandler = createPostHandler(domain, _logger);
 
@@ -92,6 +94,11 @@ class Eulerian {
       acc.add(prop.toJson());
       return acc;
     })));
+  }
+
+  static String? uid() {
+    if (!Eulerian._instance.initialized) return "";
+    return Eulerian._instance.euidl;
   }
 
   Future<List<Map<String, dynamic>>> _sync(

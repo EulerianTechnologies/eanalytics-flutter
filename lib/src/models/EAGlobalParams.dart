@@ -54,11 +54,12 @@ class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
     return globalParams;
   }
 
-  static Future<void> init() async {
+  static Future<void> init(Eulerian eulerian) async {
     try {
       _logger.debug('EAGlobalParams initialization');
       _instance.payload = await _instance._build();
       _instance.payload[EAPropertyKey.SDK_VERSION] = Eulerian.SDK_VERSION;
+      eulerian.euidl = _instance.payload[EAPropertyKey.EUIDL];
     } catch (e) {
       _logger.error('Error while initializing global parameters $e');
     }
