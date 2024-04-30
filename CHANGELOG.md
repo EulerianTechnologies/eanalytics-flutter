@@ -1,3 +1,7 @@
+## [1.1.1]
+
+- Update dependencies (package_info_plus and device_info_plus)
+
 ## [1.1.0]
 
 - Multiple action integration with name format
