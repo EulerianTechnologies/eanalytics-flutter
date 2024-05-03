@@ -69,4 +69,4 @@ EAnalytics will internally handle setting the following properties on your paylo
 
 ### Flutter SDK version
 
-`>=2.12.0 <3.0.0`
+`>=2.12.0`
