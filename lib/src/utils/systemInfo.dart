@@ -1,10 +1,14 @@
 import 'dart:io';
 
+import 'package:eanalytics/src/utils/storage.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+import 'package:android_play_install_referrer/android_play_install_referrer.dart';
 
 import 'package:advertising_id/advertising_id.dart'
     if (dart.library.js) 'package:eanalytics/src/utils/stubs/advertising_id.dart';
@@ -18,7 +22,8 @@ enum SystemInfoKey {
   APP_VERSION,
   IOS_ADID,
   ANDROID_ADID,
-  IOS_IDFV
+  IOS_IDFV,
+  INSTALL_REFERRER
 }
 
 Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
@@ -36,6 +41,19 @@ Future<Map<SystemInfoKey, dynamic>> getSystemInfo() async {
       systemInfo.addAll(parseAndroidInfo(await device.androidInfo));
       systemInfo[SystemInfoKey.ANDROID_ADID] = await getAdvertiserId(false);
       systemInfo[SystemInfoKey.UUID] = await _androidIdPlugin.getId();
+
+      String? androidInstallReferrer = await getAndroidInstallReferrer();
+      if (androidInstallReferrer == null) {
+        try {
+          ReferrerDetails referrerDetails = await AndroidPlayInstallReferrer.installReferrer;
+          androidInstallReferrer = referrerDetails.installReferrer;
+          saveAndroidInstallReferrer(androidInstallReferrer.toString());
+        } catch (e) {
+
+        }
+      }  
+      systemInfo[SystemInfoKey.INSTALL_REFERRER] = androidInstallReferrer.toString();  
+  
     }
 
     if (Platform.isIOS) {

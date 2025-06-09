@@ -62,6 +62,7 @@ class EAPropertyKey {
   static const EAPropertyKey IOS_IDFV = EAPropertyKey._self	( "ea-ios-idfv" );
   static const EAPropertyKey IOS_ADID = EAPropertyKey._self	( "ea-ios-idfa" );
   static const EAPropertyKey ANDROID_ADID = EAPropertyKey._self	( "ea-android-adid" );
+  static const EAPropertyKey INSTALL_REFERRER = EAPropertyKey._self	( "ea-android-referrer" );
 
   static EAPropertyKey custom(String v) {
     return EAPropertyKey._self( v );

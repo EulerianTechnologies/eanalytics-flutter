@@ -10,6 +10,7 @@ environment:
 dependencies:
   advertising_id: ^2.6.0
   android_id: ^0.3.6
+  android_play_install_referrer: ^0.4.0
   async: ^2.11.0
   device_info_plus: ^10.1.0
   flutter:

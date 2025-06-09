@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:eanalytics/src/utils/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const SAVED_EAPROPERTIES_KEY = '__eanalytics__storage__';
+const ANDROID_INSTALL_REFERRER = '__eanalytics__storage__android__install__referrer';
 
 Future<List<Map<String, dynamic>>> getStoredProperties(
     {SharedPreferences? store, required EALogger logger}) async {
@@ -27,4 +29,18 @@ Future<void> save(List<Map<String, dynamic>> payloads,
   logger.debug('Saving payloads $payloads');
   final storage = await SharedPreferences.getInstance();
   storage.setString(SAVED_EAPROPERTIES_KEY, jsonEncode(payloads));
+}
+
+Future<void> saveAndroidInstallReferrer(String installReference) async {
+  final storage = await SharedPreferences.getInstance();
+  storage.setString(ANDROID_INSTALL_REFERRER, installReference);
+}
+
+Future<String?> getAndroidInstallReferrer() async {
+  final storage = await SharedPreferences.getInstance();
+
+  if (storage.containsKey(ANDROID_INSTALL_REFERRER))
+    return storage.getString(ANDROID_INSTALL_REFERRER).toString();
+  else
+    return null;
 }

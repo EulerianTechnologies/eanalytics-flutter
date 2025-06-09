@@ -17,7 +17,8 @@ const SystemInfoMapping = <SystemInfoKey, EAPropertyKey>{
   SystemInfoKey.MODEL: EAPropertyKey.EHW,
   SystemInfoKey.OS: EAPropertyKey.EOS,
   SystemInfoKey.UUID: EAPropertyKey.EUIDL,
-  SystemInfoKey.IOS_IDFV: EAPropertyKey.IOS_IDFV
+  SystemInfoKey.IOS_IDFV: EAPropertyKey.IOS_IDFV,
+  SystemInfoKey.INSTALL_REFERRER: EAPropertyKey.INSTALL_REFERRER
 };
 
 class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
