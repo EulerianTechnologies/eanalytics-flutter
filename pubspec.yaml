@@ -9,10 +9,10 @@ environment:
 
 dependencies:
   advertising_id: ^2.6.0
-  android_id: ^0.3.6
+  android_id: ^0.4.0
   android_play_install_referrer: ^0.4.0
   async: ^2.11.0
-  device_info_plus: ^10.1.0
+  device_info_plus: ^11.5.0
   flutter:
     sdk: flutter
   http: ^1.2.1
@@ -28,13 +28,3 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
-flutter:
-  plugin:
-    platforms:
-      android:
-        default_package: eanalytics
-      ios:
-        default_package: eanalytics
-      web:
-        default_package: eanalytics
