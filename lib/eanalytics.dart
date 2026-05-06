@@ -17,3 +17,6 @@ export 'src/models/classes/Params.dart';
 export 'src/models/classes/Product.dart';
 export 'src/models/classes/SiteCentric.dart';
 export 'src/models/classes/Search.dart';
+
+export 'src/models/EATpView.dart';
+export 'src/models/EATpClick.dart';

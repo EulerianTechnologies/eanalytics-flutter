@@ -7,6 +7,9 @@ import 'package:logger/logger.dart';
 
 import 'models/EAGlobalParams.dart';
 import 'models/EAProperty.dart';
+import 'models/EATpClick.dart';
+import 'models/EATpView.dart';
+import 'utils/get.dart';
 
 /// Eulerian Analytics singleton class
 class Eulerian {
@@ -25,6 +28,8 @@ class Eulerian {
   String? euidl;
 
   PostHandler? _postHandler;
+  GetHandler? _getHandlerView;
+  GetHandler? _getHandlerClick;
 
   /// Singleton factory constructor
   factory Eulerian() {
@@ -62,6 +67,8 @@ class Eulerian {
       await EAGlobalParams.init( Eulerian._instance );
       Eulerian._instance.initialized = true;
       Eulerian._instance._postHandler = createPostHandler(domain, _logger);
+      Eulerian._instance._getHandlerView = createGetHandler(domain + "/tpview/", _logger);
+      Eulerian._instance._getHandlerClick = createGetHandler(domain + "/tpclick/", _logger);
 
       /* sync saved properties */
       Eulerian._instance._post(await getStoredProperties(logger: _logger));
@@ -83,18 +90,32 @@ class Eulerian {
   ///   ])
   /// ```
   static Future<void> track(List<EAProperty> properties) async {
-    assert(Eulerian._instance.initialized,
-        'Eulerian Tracker was not initialized. You must call Eulerian.Init()');
-    if (!Eulerian._instance.initialized) return;
+  assert(Eulerian._instance.initialized,
+      'Eulerian Tracker was not initialized. You must call Eulerian.Init()');
+  if (!Eulerian._instance.initialized) return;
 
-    _logger.info('Tracking properties $properties');
+  _logger.info('Tracking properties $properties');
 
-    Eulerian._instance._post(await Eulerian._instance
-        ._sync(properties.fold(<Map<String, dynamic>>[], (acc, prop) {
-      acc.add(prop.toJson());
-      return acc;
-    })));
+  final List<EAProperty> postProps = [];
+
+  for (final prop in properties) {
+    if (prop is EATpView || prop is EATpClick) {
+      await Eulerian._instance._get(prop);
+    } else {
+      postProps.add(prop);
+    }
   }
+
+  // POST batch (come prima)
+  if (postProps.isNotEmpty) {
+    Eulerian._instance._post(await Eulerian._instance._sync(
+      postProps.fold<List<Map<String, dynamic>>>([], (acc, prop) {
+        acc.add(prop.toJson());
+        return acc;
+      }),
+    ));
+  }
+}
 
   static String? uid() {
     if (!Eulerian._instance.initialized) return "";
@@ -121,4 +142,34 @@ class Eulerian {
       save(body, logger: _logger);
     });
   }
+
+  Future<void> _get(EAProperty value) async {
+  String path = "";
+  GetHandler? handler;
+
+  if (value is EATpView) {
+    path = value.toQueryString();
+    handler = Eulerian._instance._getHandlerView;
+  } else if (value is EATpClick) {
+    path = value.toQueryString();
+    handler = Eulerian._instance._getHandlerClick;
+  }
+
+  if (handler == null) return;
+
+  _logger.debug('GET request to track: $path');
+
+  await handler(
+    path,
+    onSuccess: (_) async {
+      clearStorage(logger: _logger);
+    },
+    onFail: (_) async {
+      _logger.error('GET request failed, storing payload to storage');
+
+      // 👉 salviamo il payload come fallback POST
+      save([value.toJson()], logger: _logger);
+    },
+  );
+}
 }
