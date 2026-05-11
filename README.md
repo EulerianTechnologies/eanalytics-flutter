@@ -1,4 +1,4 @@
-# EAnalytics - Flutter SDK
+e# EAnalytics - Flutter SDK
 
 ## Initialization
 
@@ -70,3 +70,43 @@ EAnalytics will internally handle setting the following properties on your paylo
 ### Flutter SDK version
 
 `>=2.12.0`
+
+## Merchandise tracking (EATpView / EATpClick)
+
+A dedicated **merchandise** tracking flow has been added to send impressions and clicks on product showcases, recommendation lists and similar surfaces.
+
+Two new trackable properties, modeled as subclasses of `EAProperty`:
+
+- **EATpView** — impression events, sent on `GET /tpview/`
+- **EATpClick** — click events, sent on `GET /tpclick/`
+
+Unlike the existing events (`EACart`, `EAOrder`, `EAEstimate`, `EASearch`, `EAProducts`), which are POSTed to the standard tracking endpoint, merchandise events are sent as **GET** requests on the two new dedicated paths. They share the same offline retry mechanism as the rest of the SDK: if the request fails, the payload is stored locally and replayed on the next tracking call or on the next app launch.
+
+### What's new
+
+- New `EATpView` and `EATpClick` models (`lib/src/models/`) exported from `lib/eanalytics.dart`.
+- New `lib/src/utils/get.dart` utility for GET requests, alongside the existing POST client.
+- `lib/src/eulerian.dart`: merchandise events are routed to `/tpview/` and `/tpclick/`, with typed replay of pending events.
+
+### Example
+
+```dart
+// Impression on a merchandise block — sent on GET /tpview/
+final view = EATpView(path: 'homepage')
+  ..siteName = 'my-site'
+  ..campaignName = 'summer_sale'
+  ..placement = 'banner_top'
+  ..url = 'http://eulerian.net'
+  ..addProduct('PROD_001', position: 0)
+  ..addProduct('PROD_002', position: 1);
+Eulerian.track([view]);
+
+// Click on a product inside that block — sent on GET /tpclick/
+final click = EATpClick(path: 'homepage')
+  ..siteName = 'my-site'
+  ..campaignName = 'summer_sale'
+  ..placement = 'banner_top'
+  ..url = 'http://eulerian.net'
+  ..setProduct('PROD_001', 2);
+Eulerian.track([click]);
+```
