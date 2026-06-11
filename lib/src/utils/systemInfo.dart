@@ -99,6 +99,26 @@ Map<SystemInfoKey, String?> parsePackageInfo(PackageInfo info) {
   };
 }
 
+/// Returns the *edev* device qualification used to force the
+/// "Native application" qualification on merchandise GET calls.
+///
+/// Recognized values: AppNativeIOSphone, AppNativeIOStablet,
+/// AppNativeAndroidphone, AppNativeAndroidtablet.
+String? getDeviceQualification() {
+  if (kIsWeb) return null;
+
+  final view = PlatformDispatcher.instance.implicitView;
+  final shortestSide = (view == null || view.devicePixelRatio == 0)
+      ? 0.0
+      : view.physicalSize.shortestSide / view.devicePixelRatio;
+  final isTablet = shortestSide >= 600;
+
+  if (Platform.isIOS) return isTablet ? 'AppNativeIOStablet' : 'AppNativeIOSphone';
+  if (Platform.isAndroid)
+    return isTablet ? 'AppNativeAndroidtablet' : 'AppNativeAndroidphone';
+  return null;
+}
+
 Future<String?> getAdvertiserId(bool requestTrackingAuthorization) async {
   try {
     if (kIsWeb)

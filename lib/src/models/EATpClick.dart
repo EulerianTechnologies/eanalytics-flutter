@@ -89,20 +89,22 @@ class EATpClick extends EAProperty {
   String toQueryString() {
     final randomNum = Random().nextInt(1000000000);
 
-    String qs =
-        "${Uri.encodeComponent(siteName)}/${Uri.encodeComponent(campaignName)}/${Uri.encodeComponent(placement)}/${Uri.encodeComponent(siteName)}/generic/$randomNum?";
-
-    qs +=
-        "$KEY_PRODUCT_REF=${Uri.encodeComponent(product["ref"])}&$KEY_PRODUCT_POS=${product["position"]}&";
+    final params = <String>[
+      "$KEY_PRODUCT_REF=${Uri.encodeComponent('${product["ref"] ?? ''}')}",
+      "$KEY_PRODUCT_POS=${product["position"] ?? 0}",
+    ];
 
     if (product["totalProducts"] != null) {
-      qs += "$KEY_TOTAL_PRODUCT=${product["totalProducts"]}&";
+      params.add("$KEY_TOTAL_PRODUCT=${product["totalProducts"]}");
     }
 
     if (url.isNotEmpty) {
-      qs += "url=${Uri.encodeComponent(url)}&";
+      params.add("eurl=${Uri.encodeComponent(url)}");
     }
 
-    return qs;
+    final global = globalQueryString();
+    if (global.isNotEmpty) params.add(global);
+
+    return "${Uri.encodeComponent(siteName)}/${Uri.encodeComponent(campaignName)}/${Uri.encodeComponent(placement)}/${Uri.encodeComponent(siteName)}/generic/$randomNum?${params.join('&')}";
   }
 }

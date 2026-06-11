@@ -82,4 +82,36 @@ class EAProperty with Serializable<EAPropertyKey, dynamic> {
   void setCustomParam(String k, String v) {
     payload[ EAPropertyKey.custom(k) ] = v;
   }
+
+  /// Global context parameters shared with collector calls, appended as a
+  /// query-string fragment to merchandise GET requests (tpview/tpclick).
+  ///
+  /// Excludes *ereplay-time* and *ea-appversion* on purpose.
+  static const _globalQueryKeys = [
+    EAPropertyKey.EUIDL,
+    EAPropertyKey.APPNAME,
+    EAPropertyKey.EOS,
+    EAPropertyKey.EHW,
+    EAPropertyKey.ANDROID_ADID,
+    EAPropertyKey.IOS_ADID,
+    EAPropertyKey.IOS_IDFV,
+    EAPropertyKey.PAGE_UID,
+  ];
+
+  /// Builds the query-string fragment of global context parameters
+  /// (euidl, ea-appname, eos, ehw, advertising ids, uid, edev)
+  String globalQueryString() {
+    final parts = <String>[];
+
+    for (final key in _globalQueryKeys) {
+      final value = payload[key];
+      if (value == null || value.toString().isEmpty) continue;
+      parts.add('${key.name}=${Uri.encodeComponent(value.toString())}');
+    }
+
+    final edev = EAGlobalParams.edev;
+    if (edev != null && edev.isNotEmpty) parts.add('edev=$edev');
+
+    return parts.join('&');
+  }
 }

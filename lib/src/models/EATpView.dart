@@ -88,8 +88,7 @@ class EATpView extends EAProperty {
   String toQueryString() {
     final randomNum = Random().nextInt(1000000000);
 
-    String qs =
-        "${Uri.encodeComponent(siteName)}/${Uri.encodeComponent(campaignName)}/${Uri.encodeComponent(placement)}/${Uri.encodeComponent(siteName)}/generic/$randomNum?";
+    final params = <String>[];
 
     for (int i = 0; i < tpviewProducts.length; i++) {
       final prod = tpviewProducts[i];
@@ -97,17 +96,22 @@ class EATpView extends EAProperty {
       final ref = prod[0];
       final pos = prod.length > 1 ? prod[1] : null;
 
-      qs += "evprdr$i=${Uri.encodeComponent(ref)}&";
+      params.add("evprdr$i=${Uri.encodeComponent('$ref')}");
 
       if (pos != null) {
-        qs += "evprdpos$i=$pos&";
+        params.add("evprdpos$i=$pos");
       }
     }
 
+    /* unlike tpclick (eurl = landing url), tpview sends the
+       current page url on the "url" parameter */
     if (url.isNotEmpty) {
-      qs += "url=${Uri.encodeComponent(url)}&";
+      params.add("url=${Uri.encodeComponent(url)}");
     }
 
-    return qs;
+    final global = globalQueryString();
+    if (global.isNotEmpty) params.add(global);
+
+    return "${Uri.encodeComponent(siteName)}/${Uri.encodeComponent(campaignName)}/${Uri.encodeComponent(placement)}/${Uri.encodeComponent(siteName)}/generic/$randomNum?${params.join('&')}";
   }
 }

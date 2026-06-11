@@ -1,9 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:eanalytics/src/utils/logger.dart';
-import 'package:eanalytics/src/utils/time.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer';
 
 typedef Future<void> OnResultCallback(List<Map<String, dynamic>> body);
 typedef GetHandler = Future<void> Function(

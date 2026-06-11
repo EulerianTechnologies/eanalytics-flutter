@@ -23,6 +23,10 @@ const SystemInfoMapping = <SystemInfoKey, EAPropertyKey>{
 
 class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
   static final _logger = EALogger();
+
+  /// *edev* device qualification (e.g. AppNativeAndroidphone).
+  /// Only appended to merchandise GET calls, never to collector POST payloads.
+  static String? edev;
   static final EAGlobalParams _instance = EAGlobalParams._internal();
   EAGlobalParams._internal();
 
@@ -61,6 +65,7 @@ class EAGlobalParams with Serializable<EAPropertyKey, dynamic> {
       _instance.payload = await _instance._build();
       _instance.payload[EAPropertyKey.SDK_VERSION] = Eulerian.SDK_VERSION;
       eulerian.euidl = _instance.payload[EAPropertyKey.EUIDL];
+      EAGlobalParams.edev = getDeviceQualification();
     } catch (e) {
       _logger.error('Error while initializing global parameters $e');
     }
