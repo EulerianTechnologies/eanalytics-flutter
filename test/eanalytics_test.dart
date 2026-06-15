@@ -4,6 +4,9 @@ import 'package:eanalytics/src/models/EATpClick.dart';
 import 'package:eanalytics/src/models/EATpView.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:eanalytics/src/eulerian.dart';
+import 'package:eanalytics/src/utils/storage.dart';
+import 'package:eanalytics/src/utils/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   test('Eulerian class should always return singleton instance', () {
@@ -90,6 +93,99 @@ void main() {
       expect(qs, isNot(contains('edev=')));
       expect(qs, isNot(contains('uid=')));
       expect(qs, isNot(contains('euidl=')));
+    });
+  });
+
+  group('Merchandise storage round-trip', () {
+    setUp(() {
+      EAGlobalParams.edev = null;
+    });
+
+    test('EATpView survives toStorageJson/fromStorageJson', () {
+      final view = EATpView(path: 'homepage')
+        ..siteName = 'my-site'
+        ..campaignName = 'summer_sale'
+        ..placement = 'banner_top'
+        ..url = 'http://eulerian.net'
+        ..setUID('beta-rc')
+        ..addProduct('PROD_001', position: 0)
+        ..addProduct('PROD_002', position: 1);
+
+      final json = view.toStorageJson();
+      expect(json['_ea_kind'], 'tpview');
+
+      final restored = EATpView.fromStorageJson(json);
+
+      expect(restored.toQueryString().split('/generic/').first,
+          view.toQueryString().split('/generic/').first);
+      final restoredParams = restored.toQueryString().split('?').last;
+      final originalParams = view.toQueryString().split('?').last;
+      expect(restoredParams, originalParams);
+    });
+
+    test('EATpClick survives toStorageJson/fromStorageJson', () {
+      final click = EATpClick(path: 'homepage')
+        ..siteName = 'my-site'
+        ..campaignName = 'summer_sale'
+        ..placement = 'banner_top'
+        ..url = 'tgt://recherche/promo?titre=Promo!'
+        ..setUID('beta-rc')
+        ..setProduct('PROD_001', 2, totalProducts: 12);
+
+      final json = click.toStorageJson();
+      expect(json['_ea_kind'], 'tpclick');
+
+      final restored = EATpClick.fromStorageJson(json);
+
+      expect(restored.toQueryString().split('?').last,
+          click.toQueryString().split('?').last);
+      expect(restored.toQueryString(), contains('ecprdr=PROD_001'));
+      expect(restored.toQueryString(), contains('ecnbr=12'));
+      expect(restored.toQueryString(), contains('uid=beta-rc'));
+    });
+  });
+
+  group('appendStored', () {
+    test('appends without overwriting existing items', () async {
+      SharedPreferences.setMockInitialValues({});
+      final store = await SharedPreferences.getInstance();
+      final logger = EALogger();
+
+      await appendStored([
+        {'_ea_kind': 'tpview', 'a': 1}
+      ], store: store, logger: logger);
+      await appendStored([
+        {'_ea_kind': 'tpclick', 'b': 2}
+      ], store: store, logger: logger);
+
+      final stored = await getStoredProperties(store: store, logger: logger);
+      expect(stored.length, 2);
+      expect(stored[0]['_ea_kind'], 'tpview');
+      expect(stored[1]['_ea_kind'], 'tpclick');
+    });
+  });
+
+  group('partitionStoredItems', () {
+    test('routes merchandise to GET-objects and the rest to POST', () {
+      final stored = <Map<String, dynamic>>[
+        {
+          '_ea_kind': 'tpview',
+          '_ea_merch': {'siteName': 'my-site', 'products': []}
+        },
+        {
+          '_ea_kind': 'tpclick',
+          '_ea_merch': {'siteName': 'my-site', 'product': {}}
+        },
+        {'path': '/page', 'uid': 'plain-event'},
+      ];
+
+      final result = partitionStoredItems(stored);
+
+      expect(result.merchandise.length, 2);
+      expect(result.merchandise[0], isA<EATpView>());
+      expect(result.merchandise[1], isA<EATpClick>());
+      expect(result.postPayloads.length, 1);
+      expect(result.postPayloads[0]['uid'], 'plain-event');
     });
   });
 }

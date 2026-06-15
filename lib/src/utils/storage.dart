@@ -24,11 +24,21 @@ Future<void> clearStorage(
   storage.remove(SAVED_EAPROPERTIES_KEY);
 }
 
-Future<void> save(List<Map<String, dynamic>> payloads,
-    {required EALogger logger}) async {
-  logger.debug('Saving payloads $payloads');
-  final storage = await SharedPreferences.getInstance();
-  storage.setString(SAVED_EAPROPERTIES_KEY, jsonEncode(payloads));
+Future<void> appendStored(List<Map<String, dynamic>> items,
+    {SharedPreferences? store, required EALogger logger}) async {
+  if (items.isEmpty) return;
+  final storage = store ?? await SharedPreferences.getInstance();
+
+  final existingRaw = storage.getString(SAVED_EAPROPERTIES_KEY);
+  final List<Map<String, dynamic>> merged = [];
+  if (existingRaw != null) {
+    final parsed = jsonDecode(existingRaw);
+    if (parsed is List) merged.addAll(parsed.cast<Map<String, dynamic>>());
+  }
+  merged.addAll(items);
+
+  logger.debug('Appending ${items.length} payload(s) to storage');
+  await storage.setString(SAVED_EAPROPERTIES_KEY, jsonEncode(merged));
 }
 
 Future<void> saveAndroidInstallReferrer(String installReference) async {

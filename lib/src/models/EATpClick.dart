@@ -5,9 +5,6 @@ import 'EAProperty.dart';
 import 'keys/EAPropertyKey.dart';
 
 // === Keys ===
-const KEY_DYNTPCLICK = "dyntpclick";
-const KEY_TPCLICKPRODUCT = "tpclickproduct";
-
 const KEY_PRODUCT_REF = "ecprdr";
 const KEY_PRODUCT_POS = "ecpos";
 const KEY_TOTAL_PRODUCT = "ecnbr";
@@ -42,47 +39,44 @@ class EATpClick extends EAProperty {
     this.product = product;
   }
 
-  // ---------------- FACTORY ----------------
-  factory EATpClick.fromRawData(Map<String, dynamic> raw) {
-    final click = EATpClick(path: raw['path'] ?? "");
-
-    final props = raw['properties']?[KEY_DYNTPCLICK];
-    if (props is Map<String, dynamic>) {
-      click.siteName = props['siteName'] ?? "";
-      click.campaignName = props['campaign'] ?? "";
-      click.placement = props['placement'] ?? "";
-      click.publisher = props['publisher'] ?? "";
-      click.media = props['media'] ?? "";
-      click.category = props['category'] ?? "";
-      click.url = props['url'] ?? "";
-    }
-
-    final p = raw['properties']?[KEY_TPCLICKPRODUCT];
-    if (p is Map<String, dynamic>) {
-      click.product = p;
-    }
-
-    return click;
-  }
-
-  // ---------------- SERIALIZATION ----------------
-  Map<String, dynamic> toMap() {
+  // ---------------- STORAGE SERIALIZATION ----------------
+  Map<String, dynamic> toStorageJson() {
     return {
-      KEY_DYNTPCLICK: [
-        siteName,
-        campaignName,
-        placement,
-        publisher,
-        media,
-        category,
-        product,
-      ]
+      '_ea_kind': 'tpclick',
+      '_ea_merch': {
+        'siteName': siteName,
+        'campaignName': campaignName,
+        'placement': placement,
+        'publisher': publisher,
+        'media': media,
+        'category': category,
+        'url': url,
+        'product': product,
+        'uid': payload[EAPropertyKey.PAGE_UID],
+      },
     };
   }
 
-  void build() {
-    payload[EAPropertyKey.custom(KEY_DYNTPCLICK)] =
-        toMap()[KEY_DYNTPCLICK];
+  factory EATpClick.fromStorageJson(Map<String, dynamic> raw) {
+    final merch =
+        (raw['_ea_merch'] as Map?)?.cast<String, dynamic>() ?? const {};
+
+    final click = EATpClick(path: '')
+      ..siteName = merch['siteName'] ?? ''
+      ..campaignName = merch['campaignName'] ?? ''
+      ..placement = merch['placement'] ?? ''
+      ..publisher = merch['publisher'] ?? ''
+      ..media = merch['media'] ?? ''
+      ..category = merch['category'] ?? ''
+      ..url = merch['url'] ?? '';
+
+    final product = merch['product'];
+    if (product is Map) click.product = Map<String, dynamic>.from(product);
+
+    final uid = merch['uid'];
+    if (uid is String && uid.isNotEmpty) click.setUID(uid);
+
+    return click;
   }
 
   // ---------------- QUERY STRING ----------------

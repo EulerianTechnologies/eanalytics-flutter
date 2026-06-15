@@ -11,6 +11,34 @@ import 'models/EATpClick.dart';
 import 'models/EATpView.dart';
 import 'utils/get.dart';
 
+/// Result of splitting stored payloads into merchandise events (re-sent via
+/// GET) and plain collector payloads (re-sent via POST).
+class PartitionedStored {
+  final List<EAProperty> merchandise;
+  final List<Map<String, dynamic>> postPayloads;
+  PartitionedStored(this.merchandise, this.postPayloads);
+}
+
+/// Splits a stored payload list by the `_ea_kind` discriminator written by
+/// `EATpView.toStorageJson()` / `EATpClick.toStorageJson()`.
+PartitionedStored partitionStoredItems(List<Map<String, dynamic>> stored) {
+  final merchandise = <EAProperty>[];
+  final postPayloads = <Map<String, dynamic>>[];
+
+  for (final item in stored) {
+    final kind = item['_ea_kind'];
+    if (kind == 'tpview') {
+      merchandise.add(EATpView.fromStorageJson(item));
+    } else if (kind == 'tpclick') {
+      merchandise.add(EATpClick.fromStorageJson(item));
+    } else {
+      postPayloads.add(item);
+    }
+  }
+
+  return PartitionedStored(merchandise, postPayloads);
+}
+
 /// Eulerian Analytics singleton class
 class Eulerian {
   static final Eulerian _instance = Eulerian._internal();
@@ -71,7 +99,7 @@ class Eulerian {
       Eulerian._instance._getHandlerClick = createGetHandler(domain + "/tpclick/", _logger);
 
       /* sync saved properties */
-      Eulerian._instance._post(await getStoredProperties(logger: _logger));
+      await Eulerian._instance._replayStored();
 
       _logger.info('Initilization succeeded for domain $domain');
     } catch (e) {
@@ -106,14 +134,17 @@ class Eulerian {
     }
   }
 
-  // POST batch (come prima)
+  // Retry any previously failed events with transport-aware routing.
+  await Eulerian._instance._replayStored();
+
+  // POST batch for the new collector events of this call.
   if (postProps.isNotEmpty) {
-    Eulerian._instance._post(await Eulerian._instance._sync(
+    Eulerian._instance._post(
       postProps.fold<List<Map<String, dynamic>>>([], (acc, prop) {
         acc.add(prop.toJson());
         return acc;
       }),
-    ));
+    );
   }
 }
 
@@ -122,12 +153,23 @@ class Eulerian {
     return Eulerian._instance.euidl;
   }
 
-  Future<List<Map<String, dynamic>>> _sync(
-      List<Map<String, dynamic>> body) async {
-    final synced = body.toList();
-    synced.addAll(await getStoredProperties(logger: _logger));
+  Future<void> _replayStored() async {
+    final stored = await getStoredProperties(logger: _logger);
+    if (stored.isEmpty) return;
 
-    return synced;
+    // Take ownership of the backlog: clear it, then re-dispatch. Each failed
+    // re-send re-appends itself via _get/_post onFail.
+    await clearStorage(logger: _logger);
+
+    final partition = partitionStoredItems(stored);
+
+    for (final event in partition.merchandise) {
+      await Eulerian._instance._get(event);
+    }
+
+    if (partition.postPayloads.isNotEmpty) {
+      Eulerian._instance._post(partition.postPayloads);
+    }
   }
 
   Future<void> _post(List<Map<String, dynamic>> payloads) async {
@@ -136,40 +178,46 @@ class Eulerian {
     _logger.debug('Request to track : \n${payloads.join('\n ')}');
 
     Eulerian._instance._postHandler!(payloads, onSuccess: (_) async {
-      clearStorage(logger: _logger);
+      // A successful POST transmitted only its own `payloads`, which are no
+      // longer in storage (new events were never stored; replayed events were
+      // cleared up front by _replayStored). Clearing here would wipe unrelated
+      // backlog items (e.g. a merchandise GET that just failed and re-appended).
     }, onFail: (body) async {
       _logger.error('POST request failed, storing payloads to storage');
-      save(body, logger: _logger);
+      await appendStored(body, logger: _logger);
     });
   }
 
   Future<void> _get(EAProperty value) async {
-  String path = "";
-  GetHandler? handler;
+    String path;
+    GetHandler? handler;
+    Map<String, dynamic> storageJson;
 
-  if (value is EATpView) {
-    path = value.toQueryString();
-    handler = Eulerian._instance._getHandlerView;
-  } else if (value is EATpClick) {
-    path = value.toQueryString();
-    handler = Eulerian._instance._getHandlerClick;
+    if (value is EATpView) {
+      path = value.toQueryString();
+      handler = Eulerian._instance._getHandlerView;
+      storageJson = value.toStorageJson();
+    } else if (value is EATpClick) {
+      path = value.toQueryString();
+      handler = Eulerian._instance._getHandlerClick;
+      storageJson = value.toStorageJson();
+    } else {
+      return;
+    }
+
+    if (handler == null) return;
+
+    _logger.debug('GET request to track: $path');
+
+    await handler(
+      path,
+      // A successful live GET must NOT clear storage: it transmitted none of
+      // the pending fallback payloads.
+      onSuccess: (_) async {},
+      onFail: (_) async {
+        _logger.error('GET request failed, storing payload to storage');
+        await appendStored([storageJson], logger: _logger);
+      },
+    );
   }
-
-  if (handler == null) return;
-
-  _logger.debug('GET request to track: $path');
-
-  await handler(
-    path,
-    onSuccess: (_) async {
-      clearStorage(logger: _logger);
-    },
-    onFail: (_) async {
-      _logger.error('GET request failed, storing payload to storage');
-
-      // 👉 salviamo il payload come fallback POST
-      save([value.toJson()], logger: _logger);
-    },
-  );
-}
 }

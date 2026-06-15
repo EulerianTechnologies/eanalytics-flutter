@@ -4,10 +4,6 @@ import 'dart:math';
 import 'EAProperty.dart';
 import 'keys/EAPropertyKey.dart';
 
-// === Keys ===
-const KEY_DYNTPVIEW = "dyntpview";
-const KEY_TPVIEWPRD = "tpviewprd";
-
 class EATpView extends EAProperty {
   String siteName = "";
   String campaignName = "";
@@ -34,54 +30,48 @@ class EATpView extends EAProperty {
     tpviewProducts.addAll(products);
   }
 
-  // ---------------- FACTORY ----------------
-  factory EATpView.fromRawData(Map<String, dynamic> raw) {
-    final view = EATpView(path: raw['path'] ?? "");
-
-    final props = raw['properties']?[KEY_DYNTPVIEW];
-    if (props is Map<String, dynamic>) {
-      view.siteName = props['siteName'] ?? "";
-      view.campaignName = props['campaign'] ?? "";
-      view.placement = props['placement'] ?? "";
-      view.publisher = props['publisher'] ?? "";
-      view.media = props['media'] ?? "";
-      view.category = props['category'] ?? "";
-      view.url = props['url'] ?? "";
-    }
-
-    final prods = raw['properties']?[KEY_TPVIEWPRD];
-    if (prods is List) {
-      for (var p in prods) {
-        if (p is List) {
-          view.tpviewProducts.add(p);
-        }
-      }
-    }
-
-    return view;
-  }
-
-  // ---------------- SERIALIZATION ----------------
-  Map<String, dynamic> toMap() {
+  // ---------------- STORAGE SERIALIZATION ----------------
+  Map<String, dynamic> toStorageJson() {
     return {
-      KEY_DYNTPVIEW: [
-        siteName,
-        campaignName,
-        placement,
-        publisher,
-        media,
-        category,
-        url,
-      ],
-      KEY_TPVIEWPRD: tpviewProducts,
+      '_ea_kind': 'tpview',
+      '_ea_merch': {
+        'siteName': siteName,
+        'campaignName': campaignName,
+        'placement': placement,
+        'publisher': publisher,
+        'media': media,
+        'category': category,
+        'url': url,
+        'products': tpviewProducts,
+        'uid': payload[EAPropertyKey.PAGE_UID],
+      },
     };
   }
 
-  void build() {
-    payload[EAPropertyKey.custom(KEY_DYNTPVIEW)] =
-        toMap()[KEY_DYNTPVIEW];
-    payload[EAPropertyKey.custom(KEY_TPVIEWPRD)] =
-        tpviewProducts;
+  factory EATpView.fromStorageJson(Map<String, dynamic> raw) {
+    final merch =
+        (raw['_ea_merch'] as Map?)?.cast<String, dynamic>() ?? const {};
+
+    final view = EATpView(path: '')
+      ..siteName = merch['siteName'] ?? ''
+      ..campaignName = merch['campaignName'] ?? ''
+      ..placement = merch['placement'] ?? ''
+      ..publisher = merch['publisher'] ?? ''
+      ..media = merch['media'] ?? ''
+      ..category = merch['category'] ?? ''
+      ..url = merch['url'] ?? '';
+
+    final products = merch['products'];
+    if (products is List) {
+      for (final p in products) {
+        if (p is List) view.tpviewProducts.add(List<dynamic>.from(p));
+      }
+    }
+
+    final uid = merch['uid'];
+    if (uid is String && uid.isNotEmpty) view.setUID(uid);
+
+    return view;
   }
 
   // ---------------- QUERY STRING ----------------
